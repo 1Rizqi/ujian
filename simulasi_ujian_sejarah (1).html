@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simulasi Ujian Sejarah</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        /* Global smooth scroll and custom animations */
+        html { 
+            scroll-behavior: smooth; 
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in {
+            animation: fadeInSlide 0.3s ease-out forwards;
+        }
+        
+        /* Hide scrollbar for a cleaner mobile navbar */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-[#f3f4f6] text-gray-800 font-sans antialiased">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- Komponen Ikon (Pengganti Lucide React untuk HTML Mandiri) ---
+        const CheckCircle2 = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>;
+        const XCircle = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>;
+        const BookOpen = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>;
+        const PenTool = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m12 19 7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>;
+        const AlertCircle = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>;
+        const Info = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
+        const ChevronDown = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m6 9 6 6 6-6"/></svg>;
+        const ChevronUp = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="m18 15-6-6-6 6"/></svg>;
+        const CheckSquare = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>;
+        const FileText = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>;
+        const Pin = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="17" y2="22"/><path d="M5 17h14v-1.5a4 4 0 0 0-4-4v-5a2 2 0 0 0-4 0v5a4 4 0 0 0-4 4V17z"/></svg>;
+        const TrendingUp = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>;
+        const Lightbulb = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>;
+        const RefreshCcw = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21v-5h5"/></svg>;
+
+        // --- Data Soal Pilihan Ganda (40 Soal) ---
+        const mcqData = [
+          {
+            materi: "Masuknya Jepang dan Jatuhnya Hindia Belanda",
+            q: "Pada tahun 1941, Amerika Serikat menghentikan ekspor minyak ke Jepang. Langkah ini memicu Jepang untuk berekspansi ke wilayah selatan (Asia Tenggara). Berdasarkan situasi tersebut, faktor utama yang melatarbelakangi ekspansi militer Jepang ke Indonesia adalah...",
+            options: [
+              "Keinginan tulus untuk membebaskan Indonesia dari penjajahan Belanda.",
+              "Menarik simpati tokoh nasionalis Asia untuk melawan dominasi Amerika.",
+              "Menguasai sumber daya alam, khususnya ladang minyak untuk menopang Perang Asia Timur Raya.",
+              "Mencari wilayah jajahan baru untuk menempatkan kelebihan penduduk Jepang.",
+              "Menjalankan mandat dari Liga Bangsa-Bangsa untuk menjaga keamanan Pasifik."
+            ],
+            ans: 2,
+            pembahasan: "Kekurangan suplai minyak mendorong ekspansi Jepang ke ladang minyak di Tarakan, Balikpapan, dan Palembang."
+          },
+          {
+            materi: "Masuknya Jepang dan Jatuhnya Hindia Belanda",
+            q: "Pemerintah Hindia Belanda dengan cepat menyerah kepada Jepang pada 8 Maret 1942. Padahal Belanda telah lama bercokol di Nusantara. Faktor utama yang menyebabkan kelumpuhan pertahanan Hindia Belanda dalam waktu singkat adalah...",
+            options: [
+              "Pasukan Belanda secara sukarela menyerahkan kekuasaan demi keselamatan rakyat Indonesia.",
+              "Belanda sedang diduduki Jerman di Eropa dan minimnya bantuan logistik dari negara-negara Sekutu.",
+              "Terjadinya pemberontakan besar-besaran dari rakyat pribumi yang memihak kepada Jepang.",
+              "Persenjataan Jepang yang jauh lebih modern didukung oleh senjata nuklir.",
+              "Adanya kesepakatan damai rahasia antara Ratu Belanda dan Kaisar Jepang."
+            ],
+            ans: 1,
+            pembahasan: "Negeri Belanda sedang diduduki Jerman, dan negara-negara sekutu sibuk dengan kepentingan masing-masing sehingga Hindia Belanda gagal dipertahankan."
+          },
+          {
+            materi: "Masuknya Jepang dan Jatuhnya Hindia Belanda",
+            q: "Alih-alih langsung menyerang Pulau Jawa yang merupakan pusat pemerintahan Hindia Belanda, balatentara Jepang memilih mendarat pertama kali di Tarakan, Kalimantan pada 11 Januari 1942. Tujuan utama taktik ini adalah...",
+            options: [
+              "Mengepung Pulau Jawa dari arah utara.",
+              "Menghindari pertempuran laut dengan armada gabungan Sekutu.",
+              "Menghancurkan pangkalan militer rahasia milik Belanda.",
+              "Mendapatkan akses cepat terhadap kilang dan ladang minyak bumi.",
+              "Menyebarkan propaganda Asia Timur Raya di luar Jawa terlebih dahulu."
+            ],
+            ans: 3,
+            pembahasan: "Tarakan diserang pertama kali karena wilayah ini dan sekitarnya sangat kaya akan minyak bumi."
+          },
+          {
+            materi: "Masuknya Jepang dan Jatuhnya Hindia Belanda",
+            q: "Penyerahan tanpa syarat Panglima Angkatan Perang Hindia Belanda kepada Jepang di Kalijati pada 8 Maret 1942 memiliki makna penting bagi jalannya sejarah bangsa Indonesia, yaitu...",
+            options: [
+              "Berakhirnya kekuasaan kolonial Belanda di Indonesia dan dimulainya masa penjajahan Jepang.",
+              "Dimulainya kerja sama militer antara Belanda dan Jepang untuk melawan Sekutu.",
+              "Bangsa Indonesia secara resmi diakui kemerdekaannya oleh pihak Jepang dan Belanda.",
+              "Masuknya tentara Sekutu ke Indonesia untuk pertama kalinya.",
+              "Dimulainya pembentukan BPUPKI oleh pemerintah kolonial yang baru."
+            ],
+            ans: 0,
+            pembahasan: "Peristiwa Kalijati mengakhiri penjajahan Belanda dan memulai kontrol penjajahan militer Jepang atas Nusantara."
+          },
+          {
+            materi: "Masuknya Jepang dan Jatuhnya Hindia Belanda",
+            q: "Di awal kedatangannya, Jepang melancarkan propaganda secara masif, salah satunya dengan membentuk Gerakan 3A (Nippon Cahaya Asia, Pelindung Asia, Pemimpin Asia). Tujuan utama propaganda ini adalah...",
+            options: [
+              "Mengubah sistem kepercayaan masyarakat Indonesia agar memuja dewa matahari.",
+              "Menarik simpati dan dukungan bangsa Indonesia agar mau membantu Jepang dalam perang.",
+              "Menunjukkan kepada dunia Barat bahwa bangsa Asia lebih berbudaya.",
+              "Mendirikan negara federasi Asia di bawah kendali langsung Soekarno.",
+              "Mengumpulkan dana perang dari sumbangan wajib rakyat jelata."
+            ],
+            ans: 1,
+            pembahasan: "Propaganda bujuk rayu 3A dilancarkan agar bangsa Indonesia mau menerima dan membantu Jepang dalam peperangan."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Sistem pemerintahan terpusat peninggalan Belanda ditiadakan. Jepang justru membagi Indonesia ke dalam tiga wilayah militer terpisah. Alasan strategis di balik penerapan sistem militer yang ketat dan terpisah ini adalah...",
+            options: [
+              "Untuk mempercepat proses kemerdekaan masing-masing wilayah.",
+              "Karena Jepang tidak memiliki cukup tenaga sipil terdidik.",
+              "Memudahkan mobilisasi sumber daya dan mengontrol rakyat secara ketat demi kepentingan perang.",
+              "Mencegah timbulnya konflik etnis antara penduduk di pulau Jawa dan Sumatera.",
+              "Memisahkan tokoh-tokoh pergerakan nasional agar tidak saling berkomunikasi."
+            ],
+            ans: 2,
+            pembahasan: "Wilayah dibagi untuk eksploitasi terfokus (Sumatera/Timur: SDA, Jawa: SDM/Politik) serta dikendalikan langsung oleh otoritas militer untuk mobilisasi perang."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Berdasarkan pembagian wilayah militer pada masa pendudukan, pemerintahan wilayah Jawa dan Madura berada di bawah kekuasaan militer...",
+            options: [
+              "Angkatan Laut (Kaigun) Armada Selatan Kedua",
+              "Angkatan Darat (Rikugun) Tentara ke-25",
+              "Angkatan Darat (Rikugun) Tentara ke-16",
+              "Kempeitai (Polisi Rahasia)",
+              "Pemerintahan Sipil Gunseikanbu"
+            ],
+            ans: 2,
+            pembahasan: "Jawa dan Madura di bawah Angkatan Darat ke-16 yang berpusat di Jakarta."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Romusha yang awalnya dipropagandakan sebagai \"prajurit pekerja sukarela\" berubah menjadi sistem eksploitasi kerja paksa. Dampak utama yang paling dirasakan oleh bangsa Indonesia akibat pengerahan Romusha adalah...",
+            options: [
+              "Meningkatnya keterampilan masyarakat dalam membangun infrastruktur berat.",
+              "Timbulnya penderitaan fisik, gizi buruk, kelaparan, hingga banyaknya korban jiwa yang tidak pernah kembali.",
+              "Munculnya kelas pekerja baru (buruh industri) yang kuat dalam sistem ekonomi kolonial.",
+              "Berkembangnya infrastruktur desa yang mempermudah jalur ekonomi lokal rakyat.",
+              "Tumbuhnya rasa persaudaraan yang erat dengan tentara-tentara Jepang di lapangan."
+            ],
+            ans: 1,
+            pembahasan: "Nasib pekerja romusha sangat menyedihkan akibat kelaparan, beban berat, dan banyak yang meninggal dunia di tempat kerja."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Jepang merangkul tokoh-tokoh nasional seperti Soekarno dan Hatta ke dalam organisasi resmi bentukan Jepang seperti Putera dan Jawa Hokkokai. Tujuan utama Jepang melakukan hal tersebut adalah...",
+            options: [
+              "Mempersiapkan tokoh-tokoh tersebut menjadi presiden dan wakil presiden masa depan.",
+              "Memberikan kebebasan politik kepada golongan nasionalis.",
+              "Memanfaatkan karisma dan pengaruh para tokoh untuk memobilisasi rakyat demi membantu perang Jepang.",
+              "Mencegah para tokoh nasional melarikan diri ke luar negeri.",
+              "Mendapatkan pinjaman dana dari organisasi-organisasi politik pergerakan."
+            ],
+            ans: 2,
+            pembahasan: "Tokoh nasionalis dimanfaatkan Jepang untuk membantu meraih simpati dan dukungan rakyat secara luas."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Jepang membentuk organisasi kemiliteran untuk para pemuda Indonesia, salah satunya PETA (Pembela Tanah Air). Tujuan utama tentara pendudukan membentuk PETA adalah...",
+            options: [
+              "Membantu armada Jepang melakukan invasi ke negara-negara sekutu di Australia.",
+              "Menjadikan pemuda Indonesia sebagai pasukan pengaman dalam negeri saja.",
+              "Mendidik pemuda Indonesia agar siap memproklamasikan kemerdekaan.",
+              "Menjadi pasukan cadangan guna membantu Jepang mempertahankan wilayah Indonesia dari serangan Sekutu.",
+              "Menyalurkan hobi militerisme di kalangan pelajar sekolah menengah."
+            ],
+            ans: 3,
+            pembahasan: "Organisasi seperti PETA dibentuk untuk melatih penduduk lokal agar memiliki bekal kemiliteran dalam membantu dan mempertahankan kedudukan Jepang."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Selama masa pendudukannya, seluruh aspek perekonomian di Indonesia diawasi secara ketat. Tujuan dari seluruh kebijakan dan eksploitasi ekonomi Jepang di Indonesia adalah...",
+            options: [
+              "Membangun infrastruktur modern di Nusantara untuk kemajuan ekonomi jangka panjang.",
+              "Menyejahterakan rakyat Asia sesuai janji Kemakmuran Bersama Asia Timur Raya.",
+              "Menguras dan memfokuskan sumber daya alam serta pangan murni untuk menunjang kebutuhan Perang Asia Timur Raya.",
+              "Menghapus monopoli perdagangan milik pengusaha-pengusaha Tionghoa.",
+              "Mengatasi inflasi dan hiperinflasi yang terjadi di akhir kekuasaan Hindia Belanda."
+            ],
+            ans: 2,
+            pembahasan: "Sifat penjajahan eksploitatif, menguras kekayaan dan memfokuskan hasil bumi untuk kebutuhan tentara dan kemenangan perang."
+          },
+          {
+            materi: "Penjajahan Jepang & Transformasi Pemerintahan",
+            q: "Dalam upaya memenuhi kebutuhan militer, perbaikan jalan, dan pembuatan kubu pertahanan, Jepang melakukan pengerahan tenaga rakyat Indonesia secara paksa. Istilah populer untuk sistem kerja paksa ini adalah...",
+            options: [
+              "Rodi",
+              "Romusha",
+              "Kinrohoshi",
+              "Tonarigumi",
+              "Jugun Ianfu"
+            ],
+            ans: 1,
+            pembahasan: "Pengerahan tenaga kerja paksa dengan kondisi memprihatinkan pada masa Jepang dikenal sebagai Romusha."
+          },
+          {
+            materi: "Dampak Penjajahan Jepang",
+            q: "Dampak sosial yang paling drastis dan segera dirasakan pasca jatuhnya Hindia Belanda ke tangan militer Jepang adalah perubahan stratifikasi sosial. Perubahan tersebut terlihat dari...",
+            options: [
+              "Diangkatnya orang Tionghoa sebagai golongan kelas satu menggantikan Belanda.",
+              "Rakyat jelata pribumi langsung menduduki seluruh kelas tertinggi dan disamakan dengan tentara Jepang.",
+              "Golongan Eropa/Belanda dijebloskan ke kamp interniran dan jatuh kastanya, sementara kedudukan orang pribumi meningkat.",
+              "Seluruh gelar kebangsawanan keraton dihapus paksa tanpa sisa.",
+              "Munculnya kelas pedagang elit dari golongan Indo yang menguasai perekonomian."
+            ],
+            ans: 2,
+            pembahasan: "Orang Eropa/Belanda menjadi sasaran amuk dan masuk kamp interniran, sehingga struktur rasial yang mendewakan kulit putih runtuh."
+          },
+          {
+            materi: "Dampak Penjajahan Jepang",
+            q: "Meskipun terkenal otoriter, masa penjajahan Jepang ternyata memberikan sebuah pengalaman birokrasi dan dampak positif di bidang politik bagi rakyat Indonesia, yaitu...",
+            options: [
+              "Dibebaskannya semua partai politik nasionalis untuk berdemokrasi ria.",
+              "Terbukanya kesempatan bagi tokoh-tokoh pribumi untuk menduduki jabatan-jabatan strategis (seperti residen) yang sebelumnya didominasi bangsa Belanda.",
+              "Diterapkannya sistem pemilihan umum pertama untuk anggota parlemen (Chuo Sangi-in).",
+              "Terbentuknya kesepakatan damai antara tokoh politik dan tentara tanpa syarat.",
+              "Pembentukan negara merdeka Indonesia di bawah perwalian Tokyo."
+            ],
+            ans: 1,
+            pembahasan: "Jabatan tinggi (Gubernur, Residen, dll) yang dulu eksklusif milik orang Eropa disingkirkan dan mulai diisi/dipercayakan kepada orang Indonesia."
+          },
+          {
+            materi: "Dampak Penjajahan Jepang",
+            q: "Jika pada masa Belanda sistem pendidikan bersifat kasta dan rumit berdasar ras, pada zaman pendudukan Jepang kebijakan pendidikan mengalami perombakan besar yang dampaknya adalah...",
+            options: [
+              "Pendidikan dilarang keras, sehingga jumlah sekolah menurun drastis.",
+              "Semua siswa diwajibkan dikirim ke Jepang untuk menjalani program militer.",
+              "Munculnya pendidikan eksklusif untuk bangsawan dan militer Jepang.",
+              "Sistem persekolahan disederhanakan (satu jenjang SD 6 tahun) sehingga lebih egaliter dan seragam bagi seluruh kalangan rakyat pribumi.",
+              "Pengantar pendidikan kembali menggunakan bahasa Belanda untuk kelancaran teknologi."
+            ],
+            ans: 3,
+            pembahasan: "Jepang menyederhanakan dan menyeragamkan sekolah umum (Kokkumin Gakko dll) menghilangkan diskriminasi rasial a la Belanda menjadi lebih egaliter."
+          },
+          {
+            materi: "Strategi Menghadapi Tirani Jepang",
+            q: "Dalam menghadapi penguasa militer Jepang, kelompok nasionalis memiliki berbagai jalan perjuangan. Tokoh utama yang memilih menempuh strategi kerja sama (kooperatif) dan bergabung dalam badan bentukan Jepang adalah...",
+            options: [
+              "Soekarno dan Mohammad Hatta",
+              "Sutan Sjahrir dan Amir Sjarifuddin",
+              "Tan Malaka dan dr. Cipto Mangunkusumo",
+              "Supriyadi dan Sudirman",
+              "Chaerul Saleh dan Wikana"
+            ],
+            ans: 0,
+            pembahasan: "Kelompok kooperatif antara lain Soekarno, Hatta, Ki Hajar Dewantara, dll, yang duduk di organisasi seperti Putera/Hokkokai."
+          },
+          {
+            materi: "Strategi Menghadapi Tirani Jepang",
+            q: "Selain perlawanan terbuka, kelompok pemuda radikal yang menolak bekerja sama memilih berjuang melawan Jepang secara diam-diam. Perjuangan radikal yang dilakukan dengan cara rahasia ini biasa disebut dengan...",
+            options: [
+              "Strategi diplomasi meja bundar.",
+              "Perjuangan konfrontasi frontal.",
+              "Gerakan bawah tanah.",
+              "Aksi unjuk rasa turun ke jalan.",
+              "Agresi sabotase budaya."
+            ],
+            ans: 2,
+            pembahasan: "Kelompok yang tidak mau bekerja sama, seperti PKI dan PSI, membangun jejaring secara diam-diam melalui gerakan bawah tanah."
+          },
+          {
+            materi: "Strategi Menghadapi Tirani Jepang",
+            q: "Berbeda dengan Soekarno dan Hatta, tokoh perjuangan ini lebih memilih menolak jabatan di badan bentukan Jepang dan memimpin pergerakan pemuda dengan strategi bawah tanah. Tokoh tersebut adalah...",
+            options: [
+              "Otto Iskandardinata",
+              "K.H. Mas Mansyur",
+              "Sutan Sjahrir",
+              "Radjiman Wedyodiningrat",
+              "G.S.S.J. Ratulangi"
+            ],
+            ans: 2,
+            pembahasan: "Sjahrir dan kawan-kawan pemuda memilih bergerak di bawah tanah dan menolak berkolaborasi secara terang-terangan dengan militer fasis Jepang."
+          },
+          {
+            materi: "Strategi Menghadapi Tirani Jepang",
+            q: "Perbedaan mendasar antara kelompok pimpinan Soekarno (strategi kooperatif) dan pimpinan Sjahrir (nonkooperatif) dalam menghadapi Jepang terletak pada...",
+            options: [
+              "Kooperatif memanfaatkan lembaga legal buatan Jepang untuk mengkonsolidasi massa secara legal, sedangkan nonkooperatif menolak campur tangan fasis dengan mengumpulkan informasi via radio gelap dan sabotase.",
+              "Kooperatif bertujuan mendirikan negara federal Jepang, sedangkan nonkooperatif menginginkan republik merdeka.",
+              "Kooperatif menggunakan senjata api buatan Jepang, sedangkan nonkooperatif menjajaki bantuan faksi komunis Uni Soviet.",
+              "Kooperatif didukung penuh oleh pemerintah Belanda dari pengasingan, sedangkan nonkooperatif didukung faksi komunis Uni Soviet.",
+              "Keduanya tidak memiliki tujuan kemerdekaan, melainkan berebut jabatan gubernur jenderal."
+            ],
+            ans: 0,
+            pembahasan: "Golongan kooperatif masuk Putera/Hokkokai demi membangun nasionalisme bertameng Jepang. Nonkooperatif bergerak diam-diam, menyadap berita, & persiapan proklamasi riil."
+          },
+          {
+            materi: "Strategi Menghadapi Tirani Jepang",
+            q: "Secara keseluruhan, strategi bangsa Indonesia dalam merespons penjajahan militer yang kejam (Tirani Jepang) sangatlah dinamis. Respons tersebut terwujud dalam bentuk...",
+            options: [
+              "Hanya perlawanan bersenjata yang radikal di semua pulau secara serentak.",
+              "Beragam taktik mulai dari pura-pura bekerja sama (kooperatif), pergerakan rahasia (bawah tanah), hingga letupan perlawanan bersenjata lokal (PETA, Cot Plieng).",
+              "Mengandalkan lobi murni dan diplomasi kepada Liga Bangsa-Bangsa.",
+              "Eksodus massal rakyat Indonesia mengungsi ke Australia demi keselamatan.",
+              "Seluruh elemen pasrah menerima pemerintahan baru Jepang tanpa perlawanan apa pun."
+            ],
+            ans: 1,
+            pembahasan: "Bangsa Indonesia menerapkan taktik majemuk, ada Tiga Golongan Pranoto (moderat, bawah tanah, kerja sama) serta perlawanan lokal bersenjata seperti di Aceh dan Blitar."
+          },
+          {
+            materi: "Proklamasi Kemerdekaan",
+            q: "Pada tahun 1942, terjadi peristiwa besar di Samudera Pasifik yang membalikkan keadaan Perang Dunia II. Alasan pentingnya Kekalahan Jepang di Pertempuran Midway bagi situasi perang adalah...",
+            options: [
+              "Mengakibatkan hancurnya dominasi udara Jepang sehingga strategi Jepang beralih dari ofensif (menyerang) menjadi defensif (bertahan).",
+              "Mengakhiri penjajahan Jepang di benua Amerika secara instan.",
+              "Memaksa Jepang menyerahkan negara Indonesia secara langsung kepada Belanda.",
+              "Kaisar Jepang segera turun takhta digantikan oleh pemerintah demokrasi.",
+              "Ditariknya seluruh pasukan PETA dari Indonesia untuk dikirim bertempur di Pasifik."
+            ],
+            ans: 0,
+            pembahasan: "Pihak Sekutu menyerang Jepang dari berbagai penjuru, yang membuat Jepang berganti dari strategi ofensif ke defensif setelah kekalahan-kekalahan sejak pertengahan 1942."
+          },
+          {
+            materi: "Proklamasi Kemerdekaan",
+            q: "Pukulan terakhir yang memaksa Kekaisaran Jepang bertekuk lutut dan menyerah tanpa syarat kepada pihak Sekutu adalah dijatuhkannya bom atom oleh Amerika Serikat pada 6 dan 9 Agustus 1945 di dua kota strategis, yaitu...",
+            options: [
+              "Tokyo dan Kyoto",
+              "Osaka dan Yokohama",
+              "Hiroshima dan Nagasaki",
+              "Okinawa dan Fukushima",
+              "Fukuoka dan Sapporo"
+            ],
+            ans: 2,
+            pembahasan: "AS menjatuhkan bom atom di kota Hiroshima (6 Agustus) dan Nagasaki (9 Agustus)."
+          },
+          {
+            materi: "Proklamasi Kemerdekaan",
+            q: "Penyerahan Jepang tanpa syarat kepada Sekutu pada 15 Agustus 1945 menimbulkan situasi unik di wilayah Indonesia yang dijajahnya. Peluang besar yang tercipta bagi bangsa Indonesia adalah...",
+            options: [
+              "Bantuan logistik langsung dari Amerika Serikat kepada rakyat.",
+              "Terciptanya Vacuum of Power (kekosongan kekuasaan) yang bisa segera dimanfaatkan untuk merebut kemerdekaan sebelum Sekutu datang.",
+              "Kembalinya secara otomatis kekuasaan Ratu Belanda tanpa syarat.",
+              "Pengesahan langsung status Indonesia sebagai negara merdeka oleh PBB.",
+              "Penghapusan utang perang Jepang yang memiskinkan rakyat."
+            ],
+            ans: 1,
+            pembahasan: "Kekalahan Jepang menyisakan waktu bagi Indonesia memproklamasikan nasibnya sendiri secara independen, mumpung tentara Jepang sudah demotivasi dan Sekutu belum mendarat."
+          },
+          {
+            materi: "Proklamasi Kemerdekaan",
+            q: "Di tengah sensor ketat pemerintahan militer Jepang, kekalahan mereka dari Sekutu pada pertengahan Agustus 1945 ternyata berhasil diketahui lebih awal oleh para pemuda pergerakan di Jakarta. Sarana informasi utama yang digunakan pemuda adalah...",
+            options: [
+              "Surat kabar Asia Raya yang memberitakan kekalahan Jepang secara transparan.",
+              "Menyadap stasiun pemancar siaran radio luar negeri (seperti Radio Australia/BBC) yang tak tersensor.",
+              "Telegraf rahasia yang dikirim langsung oleh Panglima Sekutu Mac Arthur.",
+              "Selebaran propaganda sekutu yang dijatuhkan dari pesawat tempur.",
+              "Laporan terbuka dari para komandan tentara Jepang yang berpihak pada pemuda."
+            ],
+            ans: 1,
+            pembahasan: "Para mahasiswa/pemuda di asrama Kedokteran mendengar berita kekalahan Jepang melalui 'berita Radio Australia yang mereka dengar' secara sembunyi-sembunyi."
+          },
+          {
+            materi: "Menuju Proklamasi Kemerdekaan",
+            q: "Terjadinya Peristiwa Rengasdengklok pada 16 Agustus 1945 hakikatnya berakar dari perdebatan sengit antara Golongan Tua dan Golongan Muda. Perdebatan utama tersebut berpusat pada masalah...",
+            options: [
+              "Penentuan sosok yang berhak menjadi presiden dan wakil presiden.",
+              "Apakah akan menerima atau menolak kembali berkuasanya pemerintah Belanda.",
+              "Pemilihan tempat proklamasi, antara Jakarta atau Rengasdengklok.",
+              "Waktu dan tata cara pelaksanaan Proklamasi Kemerdekaan (melalui PPKI atau secepatnya tanpa campur tangan Jepang).",
+              "Format penulisan Naskah Proklamasi yang akan ditandatangani."
+            ],
+            ans: 3,
+            pembahasan: "Pemuda mendesak agar Bung Karno memproklamasikan segera tanpa menunggu/melalui sidang PPKI (yang dianggap buatan Jepang)."
+          },
+          {
+            materi: "Menuju Proklamasi Kemerdekaan",
+            q: "Awalnya, kemerdekaan Indonesia direncanakan dipersiapkan secara matang lewat persidangan PPKI. Namun, sebuah momen memaksa perubahan haluan sehingga proklamasi harus segera dipercepat. Peristiwa krusial yang melatarbelakangi percepatan ini adalah...",
+            options: [
+              "Kepulangan Soekarno-Hatta dari Dalat, Vietnam.",
+              "Bubarnya organisasi bentukan Jepang, BPUPKI.",
+              "Runtuhnya moral tentara Jepang akibat Bom Atom dan pengumuman Jepang menyerah kepada Sekutu.",
+              "Turunnya perintah langsung dari Laksamana Maeda untuk memerdekakan Indonesia.",
+              "Menang telaknya PETA dalam pemberontakan di Blitar."
+            ],
+            ans: 2,
+            pembahasan: "Jepang telah menyerah tanggal 15 Agustus (dengar radio), pemuda bertindak sigap merebut momentum agar proklamasi tak dilabeli produk komite buatan Jepang."
+          },
+          {
+            materi: "Menuju Proklamasi Kemerdekaan",
+            q: "Golongan Muda (Wikana, Chaerul Saleh, dll) dengan gigih dan keras kepala mendesak agar Soekarno dan Hatta mendeklarasikan kemerdekaan sesegera mungkin di luar skenario PPKI. Alasan mendasar dari desakan tersebut adalah...",
+            options: [
+              "Menghindari stigma bahwa Kemerdekaan Indonesia adalah \"hadiah\" dari pemerintah militer Jepang, melainkan hasil perjuangan bangsa sendiri.",
+              "Ingin menyingkirkan peran Soekarno dan menggantikannya dengan tokoh dari Golongan Muda.",
+              "Menuruti ultimatum yang diberikan oleh tentara Sekutu yang mulai merapat di Tanjung Priok.",
+              "Mencegah militer Jepang membantai seluruh anggota PPKI.",
+              "Khawatir tokoh Golongan Tua akan berkhianat dan kembali menyerahkan negara kepada Belanda."
+            ],
+            ans: 0,
+            pembahasan: "Rapat pemuda menegaskan proklamasi harus lepas sama sekali dari pengaruh Jepang agar berdaulat."
+          },
+          {
+            materi: "Menuju Proklamasi Kemerdekaan",
+            q: "Soekarno dan Hatta akhirnya berhasil dikembalikan ke Jakarta dari pengasingan sementaranya di Rengasdengklok pada sore hari tanggal 16 Agustus 1945. Tokoh penting dari Golongan Tua yang datang menyusul dan menjaminkan nyawanya agar para pemuda bersedia melepaskan Soekarno-Hatta adalah...",
+            options: [
+              "Sayuti Melik",
+              "K.H. Wachid Hasyim",
+              "Mr. Supomo",
+              "Mr. Ahmad Subarjo",
+              "I Gusti Ketut Pudja"
+            ],
+            ans: 3,
+            pembahasan: "Ahmad Subarjo ditemani Yusuf Kunto ke Rengasdengklok meyakinkan pemuda dan menjadi penjamin bahwa proklamasi akan dilaksanakan 17 Agustus."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Setelah kembali ke Jakarta dengan aman, Soekarno, Hatta, dan tokoh lainnya perlu mencari tempat perumusan naskah proklamasi yang terjamin keamanannya dari patroli Angkatan Darat Jepang (Kempeitai). Tempat yang kemudian digunakan malam itu adalah...",
+            options: [
+              "Gedung Tyuuoo Sangi In (Pejambon)",
+              "Rumah dinas Laksamana Muda Tadashi Maeda (Jl. Imam Bonjol No.1)",
+              "Markas PETA (Jl. Jagamonyet)",
+              "Asrama Mahasiswa Prapatan 10",
+              "Lapangan Ikada Gambir"
+            ],
+            ans: 1,
+            pembahasan: "Atas jaminan Maeda yang bersimpati pada pergerakan, rumahnya digunakan untuk rapat aman menyusun teks proklamasi semalaman."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Perumusan draf naskah (konsep/klad) ditulis tangan langsung oleh Soekarno. Setelah mendapatkan kesepakatan dari seluruh hadirin, naskah tersebut perlu diketik agar menjadi naskah otentik resmi. Tokoh pemuda yang dipercaya mengetik teks proklamasi adalah...",
+            options: [
+              "Sayuti Melik",
+              "Sukarni",
+              "B.M. Diah",
+              "Sudiro",
+              "Adam Malik"
+            ],
+            ans: 0,
+            pembahasan: "Sayuti Melik adalah pemuda yang mengetik naskah proklamasi dari tulisan tangan Soekarno."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Semula, pembacaan Proklamasi pada tanggal 17 Agustus 1945 akan dilaksanakan di Lapangan Ikada (Monas). Namun demi menghindari bentrokan senjata dengan tentara Jepang yang menjaganya, lokasi dipindahkan dan akhirnya dilaksanakan di...",
+            options: [
+              "Gedung BPUPKI Pejambon",
+              "Rumah Laksamana Maeda",
+              "Halaman kediaman Ir. Soekarno, Jl. Pegangsaan Timur No. 56, Jakarta",
+              "Tugu Peringatan Proklamasi",
+              "Markas Tentara PETA di Bogor"
+            ],
+            ans: 2,
+            pembahasan: "Pemuda awalnya ke Ikada yang dijaga ketat, kemudian beralih ke Jl Pegangsaan Timur 56 (rumah Soekarno) karena PPKI telah memindahkan lokasi kesana."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Dalam upacara Proklamasi Kemerdekaan, dikibarkanlah Sang Saka Merah Putih pertama yang menjadi lambang identitas bangsa. Tokoh perempuan yang menjahit sendiri bendera bersejarah tersebut adalah...",
+            options: [
+              "Fatmawati",
+              "S.K. Trimurti",
+              "Maria Ullfah",
+              "Siti Sukaptinah",
+              "Cut Nyak Dien"
+            ],
+            ans: 0,
+            pembahasan: "Bendera Merah Putih sudah disiapkan dan dijahit sebelumnya oleh Fatmawati setelah adanya janji dari PM Koiso."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Sesaat sesudah Bung Karno membacakan Naskah Proklamasi, acara langsung dilanjutkan dengan pengibaran bendera kebangsaan. Tokoh yang bertugas mengerek dan membentangkan Sang Saka Merah Putih saat itu adalah...",
+            options: [
+              "Wikana dan Chaerul Saleh",
+              "Suwiryo dan Wilopo",
+              "Latief Hendraningrat dan Suhud (serta dibantu S.K. Trimurti memegang ujung bendera)",
+              "Frans Mendur dan Alex Mendur",
+              "Ahmad Subarjo dan Sayuti Melik"
+            ],
+            ans: 2,
+            pembahasan: "S.K. Trimurti menolak, lalu Latief yang mengerek dibantu oleh Suhud."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Proklamasi 17 Agustus 1945 berlangsung sangat sederhana, tanpa protokol kepresidenan mewah. Saat pengibaran bendera merah putih, lagu Indonesia Raya dikumandangkan oleh...",
+            options: [
+              "Orkestra simfoni dari pemuda-pemuda seni Jakarta.",
+              "Spontan dinyanyikan secara paduan suara tanpa iringan alat musik oleh seluruh hadirin yang ada di sana.",
+              "Pemutaran piringan hitam rekaman suara W.R. Supratman dari pengeras suara.",
+              "Kelompok musik militer bentukan laskar pemuda PETA.",
+              "Tim paduan suara khusus dari Gerakan 3A."
+            ],
+            ans: 1,
+            pembahasan: "\"Pengibaran bendera itu diikuti dengan menyanyikan lagu kebangsaan Indonesia Raya\" oleh massa yang hadir karena kesederhanaan persiapan saat itu (vokal grup spontan)."
+          },
+          {
+            materi: "Detik-Detik Proklamasi",
+            q: "Kalimat inti dalam naskah proklamasi berbunyi: \"Kami bangsa Indonesia dengan ini menjatakan Kemerdekaan Indonesia.\" Jika ditelaah dalam konteks historis, makna paling penting dari kalimat deklaratif tersebut adalah...",
+            options: [
+              "Sebuah pernyataan tegas secara mutlak bahwa bangsa Indonesia kini terbebas dan tidak mau lagi tunduk di bawah penindasan bangsa asing mana pun.",
+              "Sebuah undangan kepada tentara Sekutu untuk segera memasuki dan membereskan pelucutan senjata di Jawa.",
+              "Mengumumkan pergantian pemerintahan monarki pribumi menjadi fasisme buatan Jepang.",
+              "Bukti bahwa janji PM Koiso telah dipenuhi Jepang secara sah melalui dokumen hukum.",
+              "Tanda penyerahan seluruh aset kekayaan pemerintah kolonial kepada pemuda."
+            ],
+            ans: 0,
+            pembahasan: "Peristiwa ini adalah pernyataan tegas bangsa Indonesia yang merdeka, berdiri di atas kaki sendiri dan tidak mau lagi berada dalam kontrol asing."
+          },
+          {
+            materi: "Sambutan Terhadap Proklamasi",
+            q: "Segera sesudah upacara pembacaan teks proklamasi berakhir di Pegangsaan Timur 56, langkah paling awal dan krusial yang harus diupayakan oleh bangsa Indonesia (khususnya para pemuda) adalah...",
+            options: [
+              "Membentuk segera kabinet menteri untuk pelantikan sore harinya.",
+              "Mencetak mata uang rupiah secara darurat di fasilitas pemerintah.",
+              "Mendaftarkan diri menjadi negara anggota Perserikatan Bangsa-Bangsa.",
+              "Menyebarluaskan dan menyiarkan berita proklamasi ke pelosok negeri serta luar negeri secepat mungkin.",
+              "Menyerbu penjara Kempeitai untuk membebaskan sisa interniran Belanda."
+            ],
+            ans: 3,
+            pembahasan: "Pemuda yang terlibat langsung mencetak dan menyebar berita melalui kurir, serta siaran radio Domei terus diulang agar menyebar."
+          },
+          {
+            materi: "Sambutan Terhadap Proklamasi",
+            q: "Penyebaran informasi kemerdekaan sangat krusial agar rakyat tahu nasib negaranya. Mengingat luasnya wilayah Nusantara, beberapa sarana dan media andalan yang paling efektif untuk membocorkan berita ini adalah...",
+            options: [
+              "Pemancar radio Domei, kawat telegraf/telegram ke daerah-daerah, surat kabar, pamflet, dan kurir utusan daerah.",
+              "Menunggu jadwal resmi pemutaran film warta berita di bioskop-bioskop lokal kota.",
+              "Pengiriman pesawat perintis militer milik Jepang.",
+              "Penyiaran resmi melalui siaran satelit televisi ke penjuru benua Asia.",
+              "Melalui surat menyurat kedutaan besar Jepang."
+            ],
+            ans: 0,
+            pembahasan: "Penyebaran dilakukan melalui Radio Domei, telegram/telegraf, dicetak via media massa, dan melalui kurir pemuda (kawat, mulut ke mulut)."
+          },
+          {
+            materi: "Sambutan Terhadap Proklamasi",
+            q: "Para tokoh di stasiun siaran memegang peranan krusial yang mengancam nyawa mereka dari ancaman militer Jepang. Peran besar tokoh bernama F. Wuz (disertai Waidan B. Palenewen / Yusuf Ronodipuro dkk) dalam peristiwa ini adalah...",
+            options: [
+              "Menyelundupkan peralatan cetak dari kantor propaganda untuk mencetak UUD.",
+              "Mengkoordinir aksi grafiti / vandalisme massal di trem-trem kota Jakarta.",
+              "Berani membacakan, merekam, dan terus menyiarkan warta berita proklamasi berulang-ulang dari studio radio dan telegraf, meski Jepang memerintahkan berhenti.",
+              "Mewakili Indonesia di PBB menyiarkan proklamasi via radio Inggris.",
+              "Menyembunyikan tokoh proklamator dari amuk Kempeitai."
+            ],
+            ans: 2,
+            pembahasan: "F. Wuz dan Waidan menyiarkan teks itu via Radio Domei dan Waidan terus menginstruksikan siaran mengudara tiap setengah jam."
+          },
+          {
+            materi: "Sambutan Terhadap Proklamasi",
+            q: "Rakyat di berbagai daerah baik di Jawa maupun luar pulau, yang larut dalam semangat euforia revolusi, memberikan sambutan aktif untuk mendukung pemerintah RI yang baru lahir. Bentuk konkrit dukungan tersebut berupa...",
+            options: [
+              "Menyerahkan semua hasil panen langsung kepada pemerintah pusat untuk diekspor.",
+              "Aksi pengambilalihan (pelucutan senjata) markas Jepang, melukis grafiti nasionalis di dinding gedung, dan hadir di Rapat Raksasa Lapangan Ikada.",
+              "Mengadakan pemilihan gubernur dan bupati serentak melalui bilik suara.",
+              "Menyerahkan persenjataan kepada pihak Sekutu secara suka rela agar dilindungi.",
+              "Menjauhi politik dan memboikot upacara bendera karena takut dimarahi tentara."
+            ],
+            ans: 1,
+            pembahasan: "Rakyat melucuti Jepang secara paksa/damai, muncul corat-coret di tembok (grafiti semboyan kemerdekaan), serta Rapat raksasa Ikada tanggal 19 September 1945."
+          },
+          {
+            materi: "Sambutan Terhadap Proklamasi",
+            q: "Meskipun penyebaran proklamasi digencarkan, di beberapa kawasan pelosok (seperti Maluku dan Papua), kabar gembira tersebut sangat lambat sampai (baru Oktober). Hambatan utama dari tertundanya berita proklamasi adalah...",
+            options: [
+              "Upaya penyegelan/sensor siaran keras dan intimidasi oleh militer Jepang, dipersulit oleh faktor letak geografis antar-pulau serta minimnya fasilitas komunikasi dan transportasi.",
+              "Mayoritas rakyat Indonesia Timur menolak kemerdekaan Republik Indonesia.",
+              "Adanya penghentian dana telegram oleh PPKI pasca proklamasi.",
+              "Anggota PPKI daerah sepakat untuk menutupi informasi sampai pemilu diadakan.",
+              "Sekutu mencegat semua kapal utusan dan merampas teks deklarasinya."
+            ],
+            ans: 0,
+            pembahasan: "Terlambatnya penerimaan di Maluku/Papua utamanya disebabkan oleh minimnya sarana komunikasi dan transportasi antar pulau akibat perang, serta sensor balatentara."
+          }
+        ];
+
+        // --- Data Soal Uraian (Essay) ---
+        const essayData = [
+          {
+            q: "Berbeda dengan struktur kekuasaan Hindia Belanda yang terpusat, penguasaan Jepang yang meluas menyebabkan terjadinya reformasi administratif secara radikal. Jelaskan bagaimana sistem pemerintahan terpisah (3 pembagian militer) yang diterapkan militer Jepang di Indonesia setelah mengalahkan Belanda!",
+            ans: `Sistem pemerintahan dibagi menjadi 3 wilayah komando militer:\n1. Pemerintahan Angkatan Darat (Rikugun) ke-25 untuk wilayah Sumatra, dengan pusat pemerintahan di Bukittinggi.\n2. Pemerintahan Angkatan Darat (Rikugun) ke-16 untuk wilayah Jawa dan Madura, dengan pusat komando dan pemerintahan di Jakarta.\n3. Pemerintahan Angkatan Laut (Kaigun) Armada Selatan Kedua untuk wilayah Indonesia Timur, Kalimantan, Sulawesi, Nusa Tenggara, Maluku, dan Papua, dengan pusat di Makassar.`
+          },
+          {
+            q: "Dengan berfokus pada pemenuhan kebutuhan Perang Asia Timur Raya, ekonomi wilayah jajahan diperas secara ekstrem. Jelaskan dampak nyata dari kebijakan penjajahan Jepang tersebut di bidang ekonomi terhadap kehidupan sehari-hari masyarakat Indonesia masa itu!",
+            ans: `Dampak ekonomi yang dialami masyarakat sangat menyedihkan:\n1. Sistem Kerja Paksa (Romusha): Rakyat dipaksa kerja kasar tanpa upah/logistik layak untuk proyek militer, menimbulkan wabah, malnutrisi, dan kematian massal.\n2. Kekurangan Pangan yang Parah: Hasil bumi (padi/beras) dirampas wajib untuk logistik tentara Jepang. Akibat kelaparan massal, rakyat terpaksa beralih makan makanan pokok pengganti seadanya (tiwul, umbi-umbian, jagung).\n3. Kelangkaan Pakaian (Sandang): Harga kain sangat mahal hingga tak terjangkau, rakyat banyak yang menggunakan karung goni atau lembaran karet/kulit kayu untuk menutup tubuh.`
+          },
+          {
+            q: "Bulan Agustus 1945 adalah bulan tersibuk yang penuh dengan rentetan peristiwa krusial yang saling terkait dalam hitungan hari. Uraikan secara kronologis peristiwa-peristiwa bersejarah apa saja yang terjadi mengantarkan bangsa Indonesia menuju pembacaan Proklamasi 17 Agustus 1945!",
+            ans: `Kronologi peristiwa:\n1. 6 dan 9 Agustus 1945: Penjatuhan bom atom oleh AS di Hiroshima & Nagasaki, mematahkan semangat militer Jepang.\n2. 12 Agustus 1945: Pemanggilan tokoh Soekarno, Hatta, dan Radjiman ke Dalat (Vietnam) oleh Jenderal Terauchi untuk mendengarkan janji kemerdekaan RI kelak via PPKI.\n3. 14 - 15 Agustus 1945: Jepang secara resmi menyerah tanpa syarat pada sekutu, berita didengar via radio gelap oleh pemuda.\n4. 16 Agustus 1945: Terjadinya "Peristiwa Rengasdengklok", pemuda 'mengamankan' Soekarno-Hatta agar tak kena pengaruh Jepang. Malamnya disepakati perumusan teks proklamasi di kediaman Maeda.`
+          },
+          {
+            q: "Penyusunan naskah proklamasi diadakan di kediaman seorang perwira tinggi militer Jepang, yaitu Laksamana Muda Tadashi Maeda (Kepala Kantor Penghubung AL). Kemukakan alasan logis mengapa rumah seorang tokoh Jepang justru dipilih sebagai tempat aman perumusan teks proklamasi Republik Indonesia!",
+            ans: `Pemilihan rumah Laksamana Maeda didasarkan pada dua faktor utama:\n1. Faktor Simpati Personal: Maeda bersimpati kuat terhadap pergerakan kebangsaan Indonesia. Ia memiliki kedekatan pribadi (terutama lewat Ahmad Subarjo) dan tak keberatan dengan kemerdekaan Indonesia.\n2. Faktor Kekebalan & Keamanan: Rumah perwira tinggi militer terjamin kekebalan hukumnya (ekstrateritorial) dan aman dari razia brutal / intervensi sepihak Angkatan Darat (Kempeitai) Jepang yang sedang diinstruksikan menjaga 'Status Quo' (pembekuan status negara) oleh Sekutu.`
+          },
+          {
+            q: "Berita tentang kemerdekaan Indonesia memicu sebuah euforia masal dan energi kebangsaan di segala penjuru daerah. Jelaskan bentuk-bentuk reaksi serta aksi-aksi nyata berskala massal yang dilakukan oleh rakyat dan pemuda pasca mendengar Proklamasi 17 Agustus 1945!",
+            ans: `Reaksi rakyat bersifat aktif dan revolusioner, meliputi:\n1. Pelucutan Kekuasaan dan Persenjataan: Para pemuda menyerbu pos-pos dan markas militer Jepang untuk merampas senjata sebagai modal TKR, mengambil alih stasiun radio, pos kereta, dan fasilitas sipil lainnya.\n2. Aksi Grafiti & Vandalisme Kemerdekaan: Muncul tulisan-tulisan pro-kemerdekaan berbahasa Inggris ("Respect Our Independence", dll) di trem, gerbong, dan dinding kota sebagai bentuk psy-war menuntut Sekutu mengakui kemerdekaan RI.\n3. Penyelenggaraan Rapat Raksasa: Terkumpulnya lautan massa di Lapangan Ikada Jakarta pada 19 September 1945 sebagai demonstrasi kekuatan moral bahwa rakyat 100% mendukung Soekarno dan menantang intimidasi senjata pasukan Jepang.\n4. Penyobekan Bendera: Seperti di Surabaya, hotel Yamato diserbu karena pengibaran triwarna, lalu dirobek birunya agar menjadi dwiwarna.`
+          }
+        ];
+
+        // --- Komponen Utama Aplikasi ---
+        function App() {
+          const [userAnswers, setUserAnswers] = useState({});
+          const [isAnswerChecked, setIsAnswerChecked] = useState({});
+          const [essayAnswers, setEssayAnswers] = useState({});
+          const [showEssayKey, setShowEssayKey] = useState({});
+          const [showBlueprint, setShowBlueprint] = useState(false);
+          
+          const [showScore, setShowScore] = useState(false);
+          const [scoreDetails, setScoreDetails] = useState({
+            answered: 0,
+            correct: 0,
+            wrong: 0,
+            percentage: 0
+          });
+
+          const answeredCount = Object.keys(userAnswers).length;
+          const correctCount = Object.keys(isAnswerChecked).filter(qIdx => isAnswerChecked[qIdx] && userAnswers[qIdx] === mcqData[qIdx].ans).length;
+          const wrongCount = Object.keys(isAnswerChecked).filter(qIdx => isAnswerChecked[qIdx] && userAnswers[qIdx] !== mcqData[qIdx].ans).length;
+
+          const handleOptionSelect = (qIndex, optIndex) => {
+            if (!isAnswerChecked[qIndex]) {
+              setUserAnswers(prev => ({
+                ...prev,
+                [qIndex]: optIndex
+              }));
+            }
+          };
+
+          const handleCheckAnswer = (qIndex) => {
+            if (userAnswers[qIndex] !== undefined) {
+              setIsAnswerChecked(prev => ({
+                ...prev,
+                [qIndex]: true
+              }));
+            }
+          };
+
+          const handleCalculateScore = () => {
+            const newlyChecked = { ...isAnswerChecked };
+            let correct = 0;
+            
+            Object.keys(userAnswers).forEach(qIdx => {
+                newlyChecked[qIdx] = true;
+            });
+            
+            setIsAnswerChecked(newlyChecked);
+
+            let answered = Object.keys(userAnswers).length;
+            Object.keys(userAnswers).forEach(qIdx => {
+               if (userAnswers[qIdx] === mcqData[qIdx].ans) {
+                  correct++;
+               }
+            });
+
+            let wrong = answered - correct;
+            let percentage = Math.round((correct / mcqData.length) * 100);
+
+            setScoreDetails({ answered, correct, wrong, percentage });
+            setShowScore(true);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          };
+
+          // --- Fungsi Reset Ujian ---
+          const handleRetry = () => {
+            // Confirm dialog for resetting progress
+            if (window.confirm('Apakah Anda yakin ingin mengulangi ujian ini? Seluruh jawaban dan nilai Anda akan dihapus.')) {
+              setUserAnswers({});
+              setIsAnswerChecked({});
+              setEssayAnswers({});
+              setShowEssayKey({});
+              setShowScore(false);
+              setScoreDetails({ answered: 0, correct: 0, wrong: 0, percentage: 0 });
+              
+              // Scroll kembali ke paling atas
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          };
+
+          const isAnyAnswered = answeredCount > 0;
+
+          return (
+            <div className="min-h-screen pb-20 md:pb-24">
+              {/* Navbar Mobile Friendly (Scrollable horizontally dengan target sentuh lega) */}
+              <nav className="bg-[#1e3264] text-white py-4 px-4 md:px-8 flex gap-6 md:gap-8 text-[15px] md:text-base font-semibold sticky top-0 z-50 shadow-md overflow-x-auto whitespace-nowrap scrollbar-hide">
+                <a href="#exam-hero" className="hover:text-blue-300 transition-colors shrink-0">Exam</a>
+                <span className="text-gray-400 shrink-0">|</span>
+                <a href="#pg-section" className="hover:text-blue-300 transition-colors shrink-0">PG 1–40</a>
+                <span className="text-gray-400 shrink-0">|</span>
+                <a href="#essay-section" className="hover:text-blue-300 transition-colors shrink-0">Essay 41–45</a>
+              </nav>
+
+              <main className="max-w-[900px] mx-auto px-4 mt-6 space-y-5 md:space-y-6">
+                
+                {/* Bagian Header Simulasi */}
+                <div id="exam-hero" className="bg-[#24428b] text-white rounded-t-xl rounded-b-3xl p-5 sm:p-6 md:p-8 shadow-md relative overflow-hidden bg-gradient-to-br from-[#1e3a8a] to-[#24428b]">
+                  <div className="relative z-10">
+                    <p className="text-xs md:text-sm font-semibold tracking-wider text-blue-200 uppercase mb-2">
+                      Sumatif Akhir Semester (SAS) • Even Semester 2025/2026
+                    </p>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold mb-2 tracking-tight">SEJARAH INDONESIA</h1>
+                    <p className="text-blue-100 mb-6 md:mb-8 text-sm md:text-base">Kelas XI • Semester 2 Genap • SMA/MA</p>
+
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 border border-white/20">
+                        <p className="text-[10px] uppercase text-blue-200 font-bold mb-1 tracking-wider">Total Questions</p>
+                        <p className="font-bold text-base md:text-lg">45 (40 PG + 5 Essay)</p>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 border border-white/20">
+                        <p className="text-[10px] uppercase text-blue-200 font-bold mb-1 tracking-wider">Time Allowed</p>
+                        <p className="font-bold text-base md:text-lg">90 Minutes</p>
+                      </div>
+                      <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 md:p-4 border border-white/20 col-span-2 md:col-span-1">
+                        <p className="text-[10px] uppercase text-blue-200 font-bold mb-1 tracking-wider">Academic Year</p>
+                        <p className="font-bold text-base md:text-lg">2025 / 2026</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-white opacity-5 translate-x-1/3 -translate-y-1/3"></div>
+                </div>
+
+                {/* Dashboard Hitung Skor */}
+                <div className="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 md:p-8 shadow-sm">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-5 md:mb-6">
+                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                      <p className="text-2xl sm:text-3xl font-black text-gray-800">{mcqData.length + essayData.length}</p>
+                      <p className="text-xs text-gray-500 mt-1">Total</p>
+                    </div>
+                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                      <p className="text-2xl sm:text-3xl font-black text-blue-600">{answeredCount}</p>
+                      <p className="text-xs text-gray-500 mt-1">Answered</p>
+                    </div>
+                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                      <p className="text-2xl sm:text-3xl font-black text-green-500">{correctCount}</p>
+                      <p className="text-xs text-gray-500 mt-1">Correct (PG)</p>
+                    </div>
+                    <div className="text-center p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-100 shadow-sm">
+                      <p className="text-2xl sm:text-3xl font-black text-red-500">{wrongCount}</p>
+                      <p className="text-xs text-gray-500 mt-1">Wrong (PG)</p>
+                    </div>
+                  </div>
+
+                  {!showScore ? (
+                    <div className="flex flex-col items-center w-full">
+                      <button 
+                        onClick={handleCalculateScore}
+                        disabled={!isAnyAnswered}
+                        className={`w-full py-4 rounded-lg flex items-center justify-center font-bold text-base md:text-lg transition-all shadow-md ${
+                          isAnyAnswered ? 'bg-[#24428b] hover:bg-[#152c6b] text-white cursor-pointer active:scale-[0.98]' : 'bg-[#24428b]/60 text-white/70 cursor-not-allowed'
+                        }`}
+                      >
+                        <TrendingUp className="w-5 h-5 mr-2" />
+                        Calculate My Score
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col w-full gap-4">
+                      <div className={`p-6 md:p-8 rounded-lg text-center border animate-in ${
+                        scoreDetails.percentage >= 75 ? 'bg-green-50 border-green-200' : 
+                        scoreDetails.percentage >= 50 ? 'bg-yellow-50 border-yellow-200' : 
+                        'bg-[#ffe4e6] border-red-200'
+                      }`}>
+                        <h2 className={`text-4xl sm:text-5xl font-black mb-2 ${
+                            scoreDetails.percentage >= 75 ? 'text-green-800' : 
+                            scoreDetails.percentage >= 50 ? 'text-yellow-800' : 
+                            'text-[#111827]'
+                        }`}>
+                          {scoreDetails.percentage}% ({scoreDetails.correct}/{mcqData.length})
+                        </h2>
+                        <p className="font-medium text-gray-700 text-sm sm:text-base">
+                          {scoreDetails.percentage >= 75 ? 'Luar biasa! Pemahamanmu sangat baik.' : 
+                           scoreDetails.percentage >= 50 ? 'Kerja bagus, tapi terus ulangi materinya ya!' : 
+                           'Teruslah berlatih, kamu pasti bisa!'}
+                        </p>
+                      </div>
+                      <button 
+                        onClick={handleRetry}
+                        className="w-full py-3.5 rounded-lg flex items-center justify-center font-bold text-base transition-all border-2 border-gray-300 text-gray-700 hover:bg-gray-50 active:scale-[0.98]"
+                      >
+                        <RefreshCcw className="w-5 h-5 mr-2" />
+                        Ulangi Ujian (Reset)
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Box Kisi-Kisi */}
+                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+                  <button 
+                    onClick={() => setShowBlueprint(!showBlueprint)}
+                    className="w-full flex justify-between items-center p-4 sm:p-5 bg-gray-50 hover:bg-gray-100 transition-colors"
+                  >
+                    <span className="flex items-center font-semibold text-gray-800 text-[15px] sm:text-base">
+                      <FileText className="w-5 h-5 mr-3 text-orange-500 flex-shrink-0" />
+                      Kisi-Kisi / Question Blueprint
+                    </span>
+                    <span className="text-gray-600 text-sm font-semibold flex items-center">
+                      {showBlueprint ? (
+                        <span className="flex items-center"><ChevronUp className="w-4 h-4 mr-1" /> Hide</span>
+                      ) : (
+                        <span className="flex items-center"><ChevronDown className="w-4 h-4 mr-1" /> Show</span>
+                      )}
+                    </span>
+                  </button>
+                  
+                  {showBlueprint && (
+                    <div className="p-5 sm:p-6 border-t border-gray-200 bg-white text-[15px] text-gray-600 leading-relaxed animate-in">
+                      <p className="mb-3"><strong>Capaian Pembelajaran:</strong> Peserta didik mampu menganalisis munculnya kesadaran kebangsaan dan pergerakan nasional Indonesia pada masa kolonial serta memahami peran tokoh, organisasi, dan media dalam memperjuangkan kemerdekaan.</p>
+                      <ul className="list-disc pl-5 space-y-1.5 text-gray-700">
+                        <li>Memahami latar belakang ekspansi Jepang ke Asia</li>
+                        <li>Menganalisis sistem pemerintahan dan eksploitasi militer Jepang</li>
+                        <li>Mengevaluasi dampak penjajahan di bidang sosial, ekonomi, pendidikan</li>
+                        <li>Memahami dinamika respon bangsa Indonesia: kooperatif vs bawah tanah</li>
+                        <li>Menganalisis kronologi proklamasi dan tokoh yang terlibat</li>
+                        <li>Mengevaluasi respon rakyat pasca kemerdekaan di berbagai daerah</li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                {/* Instruksi Pengerjaan */}
+                <div className="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 md:p-8 shadow-sm">
+                  <h3 className="flex items-center font-bold text-gray-900 text-base md:text-lg mb-4 md:mb-5">
+                    <Pin className="w-5 h-5 mr-3 text-red-600 flex-shrink-0" /> 
+                    General Instructions
+                  </h3>
+                  <ul className="list-disc pl-5 sm:pl-6 space-y-2 md:space-y-3 text-gray-600 text-[15px] md:text-base leading-relaxed">
+                    <li>Baca setiap soal dengan teliti sebelum menjawab.</li>
+                    <li><strong>Section A (Q1–40):</strong> Pilih jawaban terbaik: A, B, C, D, atau E dengan menyentuh pilihan yang ada.</li>
+                    <li><strong>Section B (Q41–45):</strong> Jawab menggunakan kalimat lengkap pada kotak jawaban yang tersedia.</li>
+                    <li>Tekan tombol <em>Cek Jawaban</em> untuk memeriksa pilihanmu dan memunculkan kotak pembahasan untuk belajar.</li>
+                    <li>Batas waktu yang disarankan: <strong>90 menit</strong>.</li>
+                  </ul>
+                </div>
+
+                {/* ============================================================
+                    SECTION A: PILIHAN GANDA 
+                    ============================================================ */}
+                <div id="pg-section" className="pt-6 md:pt-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#1e3264] mb-5 md:mb-6 border-b-2 border-gray-200 pb-3">
+                    Section A: Pilihan Ganda (Q1 - Q40)
+                  </h2>
+                  
+                  <div className="space-y-5 md:space-y-6">
+                    {mcqData.map((currentMcq, currentMcqIndex) => {
+                      const hasSelected = userAnswers[currentMcqIndex] !== undefined;
+                      const isChecked = isAnswerChecked[currentMcqIndex];
+                      const isCorrect = userAnswers[currentMcqIndex] === currentMcq.ans;
+
+                      return (
+                        <div key={currentMcqIndex} className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+                          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-5">
+                            <div className="font-extrabold text-xl sm:text-2xl text-[#1e3264] w-full sm:w-8 flex-shrink-0 mt-0 sm:mt-1 mb-2 sm:mb-0 border-b border-gray-100 sm:border-none pb-2 sm:pb-0">
+                              {currentMcqIndex + 1}.
+                            </div>
+                            <div className="flex-1">
+                              <div className="mb-3 sm:mb-4">
+                                <span className="inline-flex items-center px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100 shadow-sm">
+                                  <Lightbulb className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1 sm:mr-1.5 text-indigo-500" />
+                                  Topik: {currentMcq.materi}
+                                </span>
+                              </div>
+
+                              <p className="text-base sm:text-lg md:text-xl text-gray-800 leading-relaxed font-medium mb-5">
+                                {currentMcq.q}
+                              </p>
+
+                              <div className="space-y-3 mb-5">
+                                {currentMcq.options.map((opt, idx) => {
+                                  const letter = String.fromCharCode(65 + idx);
+                                  const isSelected = userAnswers[currentMcqIndex] === idx;
+                                  const isCorrectAns = currentMcq.ans === idx;
+                                  
+                                  let styleClass = "border-gray-200 hover:border-[#24428b] hover:bg-blue-50 text-gray-700 bg-white shadow-sm";
+                                  if (isSelected) styleClass = "border-[#24428b] bg-blue-50 ring-2 ring-[#24428b] text-[#1e3264] shadow-md";
+                                  
+                                  if (isChecked) {
+                                    if (isCorrectAns) {
+                                      styleClass = "border-green-500 bg-green-50 ring-2 ring-green-500 text-green-900 font-medium shadow-md";
+                                    } else if (isSelected) {
+                                      styleClass = "border-orange-500 bg-orange-50 ring-2 ring-orange-500 text-orange-900 opacity-90 shadow-sm";
+                                    } else {
+                                      styleClass = "border-gray-200 opacity-40 bg-gray-50 shadow-none";
+                                    }
+                                  }
+
+                                  return (
+                                    <button
+                                      key={idx}
+                                      onClick={() => handleOptionSelect(currentMcqIndex, idx)}
+                                      disabled={isChecked}
+                                      className={`w-full text-left p-3.5 sm:p-4 rounded-xl border transition-all duration-200 flex items-start transform ${isChecked ? 'cursor-default' : 'cursor-pointer hover:-translate-y-0.5 active:scale-[0.98]'} ${styleClass}`}
+                                    >
+                                      <span className="font-bold mr-3 sm:mr-4 mt-0.5 w-6 flex-shrink-0 text-center">{letter}.</span>
+                                      <span className="leading-relaxed text-[15px] sm:text-base">{opt}</span>
+                                      
+                                      {isChecked && isCorrectAns && (
+                                        <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 ml-auto flex-shrink-0 mt-0.5" />
+                                      )}
+                                      {isChecked && isSelected && !isCorrectAns && (
+                                        <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-orange-600 ml-auto flex-shrink-0 mt-0.5" />
+                                      )}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+
+                              <div className="flex flex-col sm:flex-row items-center justify-end border-t border-gray-100 pt-4 gap-3">
+                                {!isChecked ? (
+                                  <button
+                                    onClick={() => handleCheckAnswer(currentMcqIndex)}
+                                    disabled={!hasSelected}
+                                    className={`w-full sm:w-auto py-3.5 sm:py-2 px-6 rounded-lg sm:rounded-md font-semibold text-[15px] sm:text-sm transition-colors flex items-center justify-center ${
+                                      hasSelected 
+                                        ? 'bg-white border-2 border-[#24428b] text-[#24428b] hover:bg-blue-50 cursor-pointer shadow-sm hover:shadow-md active:bg-blue-100' 
+                                        : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
+                                    }`}
+                                  >
+                                    <CheckSquare className="w-4 h-4 mr-2" />
+                                    Cek Jawaban
+                                  </button>
+                                ) : (
+                                  <span className={`w-full sm:w-auto justify-center font-bold px-4 py-3 sm:py-1.5 rounded-lg sm:rounded-md flex items-center text-[15px] sm:text-sm ${isCorrect ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-orange-100 text-orange-800 border border-orange-200'}`}>
+                                    {isCorrect ? (
+                                      <span className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2" /> Jawaban Benar!</span>
+                                    ) : (
+                                      <span className="flex items-center"><XCircle className="w-4 h-4 mr-2" /> Jawaban Salah!</span>
+                                    )}
+                                  </span>
+                                )}
+                              </div>
+
+                              {isChecked && (
+                                <div className={`mt-5 sm:mt-6 p-4 sm:p-5 md:p-6 border-l-4 rounded-r-xl rounded-l-sm shadow-inner animate-in ${
+                                  isCorrect ? 'bg-green-50 border-green-500' : 'bg-orange-50 border-orange-500'
+                                }`}>
+                                  <h4 className={`flex items-center font-bold mb-2 sm:mb-3 text-[15px] sm:text-base ${
+                                    isCorrect ? 'text-green-800' : 'text-orange-800'
+                                  }`}>
+                                    {isCorrect ? <CheckCircle2 className="w-5 h-5 mr-2 flex-shrink-0" /> : <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />}
+                                    {isCorrect ? 'Luar Biasa! Jawabanmu Tepat' : 'Mari Pahami Bersama (Pembahasan)'}
+                                  </h4>
+                                  <p className="text-gray-700 leading-relaxed text-[14px] sm:text-[15px] md:text-base">
+                                    {currentMcq.pembahasan}
+                                  </p>
+                                </div>
+                              )}
+
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* ============================================================
+                    SECTION B: URAIAN
+                    ============================================================ */}
+                <div id="essay-section" className="pt-8 sm:pt-10">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#1e3264] mb-5 md:mb-6 border-b-2 border-gray-200 pb-3">
+                    Section B: Soal Uraian (Q41 - Q45)
+                  </h2>
+
+                  <div className="space-y-5 md:space-y-6">
+                    {essayData.map((essay, index) => {
+                      const globalIndex = mcqData.length + index + 1;
+                      
+                      return (
+                        <div key={index} className="bg-white border border-gray-200 rounded-xl p-4 sm:p-6 md:p-8 shadow-sm">
+                          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-5 mb-4 sm:mb-5">
+                            <div className="font-extrabold text-xl sm:text-2xl text-gray-800 w-full sm:w-8 flex-shrink-0 border-b border-gray-100 sm:border-none pb-2 sm:pb-0">
+                              {globalIndex}.
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-base sm:text-lg text-gray-800 leading-relaxed font-medium mt-1 sm:mt-0">
+                                {essay.q}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="ml-0 sm:ml-12 md:ml-12 mb-5">
+                            <label className="block text-[13px] sm:text-sm font-semibold text-gray-500 mb-2 uppercase tracking-wide">Box Jawaban / Answer Box</label>
+                            <textarea 
+                              value={essayAnswers[index] || ''}
+                              onChange={(e) => setEssayAnswers(prev => ({...prev, [index]: e.target.value}))}
+                              placeholder="Ketik jawabanmu di sini menggunakan kalimat yang lengkap..."
+                              className="w-full min-h-[140px] p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#24428b] focus:border-[#24428b] outline-none transition-all resize-y text-gray-800 bg-[#f8fafc] focus:bg-white text-[15px] sm:text-base"
+                            ></textarea>
+                          </div>
+
+                          <div className="ml-0 sm:ml-12 md:ml-12 flex flex-col sm:flex-row justify-end border-t border-gray-100 pt-4">
+                            <button
+                              onClick={() => setShowEssayKey(prev => ({...prev, [index]: !prev[index]}))}
+                              className="w-full sm:w-auto py-3.5 sm:py-2 px-6 bg-white border border-gray-300 text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 rounded-lg sm:rounded-md font-semibold transition-colors flex items-center justify-center text-[15px] sm:text-sm active:bg-gray-100"
+                            >
+                              <BookOpen className="w-4 h-4 mr-2" />
+                              {showEssayKey[index] ? 'Sembunyikan Panduan' : 'Lihat Panduan Jawaban'}
+                            </button>
+                          </div>
+
+                          {showEssayKey[index] && (
+                            <div className="ml-0 sm:ml-12 md:ml-12 mt-4 sm:mt-5 p-4 sm:p-5 md:p-6 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-xl rounded-l-sm shadow-sm animate-in">
+                              <h4 className="font-bold text-emerald-800 mb-2 sm:mb-3 flex items-center text-[15px] sm:text-base">
+                                <PenTool className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-emerald-600 flex-shrink-0" /> Rubrik Penilaian & Kunci Jawaban
+                              </h4>
+                              <div className="text-gray-800 whitespace-pre-line leading-relaxed text-[14px] sm:text-[15px] md:text-base">
+                                {essay.ans}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="py-10 md:py-12 pb-16 flex flex-col items-center justify-center border-t-2 border-gray-200 mt-8 md:mt-10">
+                  {!showScore ? (
+                    <div className="flex flex-col items-center w-full">
+                      <p className="text-gray-500 mb-4 font-medium text-center text-sm md:text-base">Sudah selesai mengerjakan semua soal?</p>
+                      <button 
+                        onClick={handleCalculateScore}
+                        className="w-full sm:w-auto py-4 px-10 bg-[#24428b] hover:bg-[#152c6b] text-white rounded-xl font-bold text-base md:text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 active:scale-[0.98] flex items-center justify-center"
+                      >
+                        <TrendingUp className="w-6 h-6 mr-3" />
+                        Hitung Nilai Saya Sekarang
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center w-full">
+                      <p className="text-gray-500 mb-4 font-medium text-center text-sm md:text-base">Ingin mengulangi dari awal?</p>
+                      <button 
+                        onClick={handleRetry}
+                        className="w-full sm:w-auto py-4 px-10 bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-xl font-bold text-base md:text-lg shadow-sm hover:shadow-md transition-all active:scale-[0.98] flex items-center justify-center"
+                      >
+                        <RefreshCcw className="w-6 h-6 mr-3" />
+                        Ulangi Ujian (Reset)
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+              </main>
+            </div>
+          );
+        }
+
+        // --- Inisialisasi React DOM ke Element HTML ---
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
