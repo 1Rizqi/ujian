@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materi Ulangan PAI Kelas XI — Panduan Lengkap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sage: #7a9e7e; --sage-light: #a8c5ac; --sage-dark: #4f7a54;
+      --cream: #faf8f3; --cream-dark: #f0ece1; --sand: #e8dfc8;
+      --warm-brown: #8b6f47; --text-dark: #2d3436; --text-mid: #4a5568;
+      --text-light: #718096; --gold: #c9a84c; --teal: #4a9b8f;
+      --rose: #c47a7a; --lavender: #8a7ab0;
+      --radius: 14px; --shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.7; font-size: 15px; }
+
+    .site-header { background: linear-gradient(135deg, var(--sage-dark) 0%, var(--sage) 50%, var(--teal) 100%); color: white; text-align: center; padding: 48px 20px 36px; position: relative; overflow: hidden; }
+    .site-header::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); }
+    .site-header .badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 50px; padding: 4px 16px; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+    .site-header h1 { font-family: 'Lora', serif; font-size: clamp(22px, 5vw, 36px); font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+    .site-header p { font-size: 14px; opacity: 0.85; max-width: 500px; margin: 0 auto; }
+    .header-meta { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+    .meta-chip { background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 50px; padding: 6px 14px; font-size: 12px; font-weight: 600; }
+
+    .sticky-nav { background: white; border-bottom: 2px solid var(--cream-dark); position: sticky; top: 0; z-index: 100; padding: 0 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .nav-inner { display: flex; overflow-x: auto; gap: 4px; padding: 10px 0; scrollbar-width: none; }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-btn { background: none; border: none; padding: 7px 14px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; color: var(--text-mid); transition: all 0.2s; }
+    .nav-btn:hover { background: var(--cream-dark); color: var(--sage-dark); }
+    .nav-btn.active { background: var(--sage); color: white; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+    .main-content { padding: 28px 0 60px; }
+    .section { margin-bottom: 36px; scroll-margin-top: 70px; animation: fadeUp 0.4s ease both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 0; padding: 16px 20px; background: white; border-radius: var(--radius) var(--radius) 0 0; border-left: 5px solid var(--sage); box-shadow: var(--shadow); }
+    .section-header.teal { border-left-color: var(--teal); }
+    .section-header.gold { border-left-color: var(--gold); }
+    .section-header.rose { border-left-color: var(--rose); }
+    .section-header.lavender { border-left-color: var(--lavender); }
+    .section-header.brown { border-left-color: var(--warm-brown); }
+
+    .section-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .sage-bg { background: #e8f5ea; } .teal-bg { background: #e0f4f2; } .gold-bg { background: #fdf3dc; }
+    .rose-bg { background: #fbe8e8; } .lav-bg { background: #ece8f5; } .brown-bg { background: #f5ede0; }
+
+    .section-title-wrap h2 { font-family: 'Lora', serif; font-size: clamp(16px, 3vw, 20px); color: var(--text-dark); font-weight: 600; line-height: 1.3; }
+    .soal-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+    .soal-badge { display: inline-block; background: var(--sage); color: white; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 50px; }
+    .soal-badge.teal { background: var(--teal); } .soal-badge.gold { background: var(--gold); color: #333; }
+    .soal-badge.rose { background: var(--rose); } .soal-badge.lav { background: var(--lavender); }
+    .soal-badge.brown { background: var(--warm-brown); } .soal-badge.essay { background: #2d3436; }
+
+    .section-body { background: white; border-radius: 0 0 var(--radius) var(--radius); padding: 22px 22px 24px; box-shadow: var(--shadow); }
+    .card { background: var(--cream); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; border: 1px solid var(--cream-dark); }
+    .card-title { font-size: 14px; font-weight: 700; color: var(--sage-dark); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .card-title.teal { color: var(--teal); } .card-title.gold { color: #b8922a; } .card-title.rose { color: #b05a5a; } .card-title.lav { color: var(--lavender); } .card-title.brown { color: var(--warm-brown); }
+
+    .q-num { background: var(--sage); color: white; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 50px; letter-spacing: 0.5px; }
+    .q-num.teal { background: var(--teal); } .q-num.gold { background: var(--gold); color: #333; }
+    .q-num.rose { background: var(--rose); } .q-num.lav { background: var(--lavender); }
+    .q-num.brown { background: var(--warm-brown); } .q-num.essay { background: #2d3436; }
+
+    .arabic { font-family: 'Amiri', serif; font-size: 22px; direction: rtl; text-align: right; line-height: 2.2; color: var(--sage-dark); background: linear-gradient(135deg, #f0f7f1, #e8f5ea); padding: 16px 20px; border-radius: 10px; border-right: 4px solid var(--sage); margin: 10px 0; }
+    .arabic.teal { background: linear-gradient(135deg, #e8f8f6, #d4f0ec); border-right-color: var(--teal); color: #2a7a6f; }
+    .arabic.gold { background: linear-gradient(135deg, #fdf8ec, #fdf3dc); border-right-color: var(--gold); color: #8a6420; }
+    .arabic.rose { background: linear-gradient(135deg, #fdeaea, #fad4d4); border-right-color: var(--rose); color: #8b3030; }
+    .arabic.lav { background: linear-gradient(135deg, #f0edfa, #e8e2f8); border-right-color: var(--lavender); color: #4a3880; }
+
+    .translation { font-style: italic; color: var(--text-mid); font-size: 13.5px; padding: 10px 14px; background: var(--cream-dark); border-radius: 8px; border-left: 3px solid var(--sage-light); margin: 8px 0; line-height: 1.8; }
+
+    .info-list { list-style: none; padding: 0; }
+    .info-list li { padding: 8px 0 8px 24px; position: relative; border-bottom: 1px solid var(--cream-dark); font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+    .info-list li:last-child { border-bottom: none; }
+    .info-list li::before { content: '●'; position: absolute; left: 4px; top: 9px; color: var(--sage); font-size: 10px; }
+    .info-list.numbered { counter-reset: item; }
+    .info-list.numbered li { counter-increment: item; padding-left: 30px; }
+    .info-list.numbered li::before { content: counter(item) "."; font-weight: 700; color: var(--sage-dark); font-size: 13px; left: 2px; top: 8px; }
+
+    .info-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 12px 0; }
+    .info-table th { background: var(--sage); color: white; padding: 10px 12px; text-align: left; font-weight: 700; }
+    .info-table th.teal { background: var(--teal); } .info-table th.brown { background: var(--warm-brown); }
+    .info-table td { padding: 9px 12px; border-bottom: 1px solid var(--cream-dark); color: var(--text-mid); vertical-align: top; }
+    .info-table tr:last-child td { border-bottom: none; }
+    .info-table tr:nth-child(even) td { background: var(--cream); }
+
+    .highlight-box { border-radius: 10px; padding: 14px 16px; margin: 12px 0; font-size: 14px; line-height: 1.7; }
+    .highlight-box.green { background: #e8f5ea; border: 1px solid #a8d5ac; color: #2d6a33; }
+    .highlight-box.blue { background: #e0f4f2; border: 1px solid #7ec8c2; color: #1a6b63; }
+    .highlight-box.yellow { background: #fdf9e6; border: 1px solid #e8d580; color: #7a6010; }
+    .highlight-box.red { background: #fde8e8; border: 1px solid #e8a0a0; color: #8b3030; }
+    .highlight-box.purple { background: #f0edfa; border: 1px solid #b8a8e0; color: #4a3880; }
+    .highlight-box.brown { background: #f5ede0; border: 1px solid #d4a870; color: #6b4220; }
+    .highlight-box .hb-title { font-weight: 800; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .tajwid-tag { display: inline-block; font-family: 'Amiri', serif; font-size: 17px; background: linear-gradient(135deg, #e8f5ea, #d4f0d8); border-radius: 8px; padding: 4px 10px; color: var(--sage-dark); direction: rtl; }
+
+    details { border: 1px solid var(--cream-dark); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+    summary { padding: 13px 18px; cursor: pointer; font-size: 14px; font-weight: 700; color: var(--text-dark); background: var(--cream); user-select: none; list-style: none; display: flex; align-items: center; gap: 10px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '▾'; margin-left: auto; font-size: 16px; color: var(--sage); transition: transform 0.2s; }
+    details[open] summary::after { transform: rotate(180deg); }
+    details > div { padding: 14px 18px 16px; font-size: 14px; color: var(--text-mid); line-height: 1.7; background: white; border-top: 1px solid var(--cream-dark); }
+
+    .essay-card { background: linear-gradient(135deg, #f8f4ff, #f0edfa); border: 1px solid #c8bfea; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; }
+    .essay-number { display: inline-block; background: var(--lavender); color: white; font-weight: 800; font-size: 11px; padding: 3px 10px; border-radius: 50px; margin-bottom: 8px; letter-spacing: 0.5px; }
+    .essay-card h4 { font-size: 15px; font-weight: 700; color: #3d3070; margin-bottom: 10px; font-family: 'Lora', serif; }
+    .essay-card ul, .essay-card ol { padding-left: 20px; color: var(--text-mid); font-size: 14px; }
+    .essay-card li { margin-bottom: 5px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+    @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+    .mini-card { background: var(--cream); border: 1px solid var(--cream-dark); border-radius: 10px; padding: 14px 15px; }
+    .mini-card h4 { font-size: 13px; font-weight: 700; color: var(--sage-dark); margin-bottom: 6px; }
+    .mini-card.teal h4 { color: var(--teal); } .mini-card.gold h4 { color: #b8922a; }
+    .mini-card.rose h4 { color: #b05a5a; } .mini-card.lav h4 { color: var(--lavender); }
+    .mini-card p, .mini-card li { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+    .mini-card ul { padding-left: 16px; }
+    .mini-card li { margin-bottom: 3px; }
+
+    .section-divider { height: 1px; background: linear-gradient(to right, transparent, var(--sage-light), transparent); margin: 16px 0; }
+    .note-box { background: #fff9ed; border: 1px solid #f5d98a; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #7a5c10; margin: 10px 0; }
+    .note-box::before { content: '💡 '; }
+
+    footer { background: var(--sage-dark); color: white; text-align: center; padding: 24px; font-size: 13px; }
+    @media (max-width: 640px) { .section-header { padding: 14px 15px; gap: 10px; } .section-body { padding: 16px 14px 18px; } .arabic { font-size: 19px; } .info-table { font-size: 12.5px; } }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="badge">Pendidikan Agama Islam</div>
+  <h1>Materi Ulangan Lengkap<br>PAI Kelas XI</h1>
+  <p>Panduan belajar mencakup 40 soal pilihan ganda + 5 soal essay berdasarkan kisi-kisi resmi</p>
+  <div class="header-meta">
+    <span class="meta-chip">📖 40 Pilihan Ganda</span>
+    <span class="meta-chip">✏️ 5 Essay</span>
+    <span class="meta-chip">🕌 5 Bab Utama</span>
+  </div>
+</header>
+
+<nav class="sticky-nav" role="navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="goTo('bab1',this)">📖 QS. Yunus</button>
+      <button class="nav-btn" onclick="goTo('bab2',this)">🤝 Toleransi & Kehidupan</button>
+      <button class="nav-btn" onclick="goTo('bab3',this)">💎 Iman & Akhlak</button>
+      <button class="nav-btn" onclick="goTo('bab4',this)">📱 Media Sosial</button>
+      <button class="nav-btn" onclick="goTo('bab5',this)">💍 Pernikahan</button>
+      <button class="nav-btn" onclick="goTo('bab6',this)">📋 Talak & Iddah</button>
+      <button class="nav-btn" onclick="goTo('bab7',this)">🌍 Sejarah Islam</button>
+      <button class="nav-btn" onclick="goTo('essay',this)">✏️ Essay</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container main-content">
+
+<!-- BAB 1: QS YUNUS -->
+<section class="section" id="bab1">
+  <div class="section-header">
+    <div class="section-icon sage-bg">📖</div>
+    <div class="section-title-wrap">
+      <h2>Q.S. Yūnus/10: 40–41 — Toleransi</h2>
+      <div class="soal-badges">
+        <span class="soal-badge">No. 1</span><span class="soal-badge">No. 2</span><span class="soal-badge">No. 3</span><span class="soal-badge essay">Essay 41</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-title">🕋 Teks Lengkap QS. Yūnus: 40–41</div>
+      <div class="arabic">وَمِنْهُمْ مَّنْ يُّؤْمِنُ بِهٖ وَمِنْهُمْ مَّنْ لَّا يُؤْمِنُ بِهٖ ۗ وَرَبُّكَ اَعْلَمُ بِالْمُفْسِدِيْنَ ﴿٤٠﴾</div>
+      <div class="arabic" style="margin-top:8px;">وَاِنْ كَذَّبُوْكَ فَقُلْ لِّيْ عَمَلِيْ وَلَكُمْ عَمَلُكُمْۚ اَنْتُمْ بَرِيْۤـُٔوْنَ مِمَّآ اَعْمَلُ وَاَنَا۠ بَرِيْۤءٌ مِّمَّا تَعْمَلُوْنَ ﴿٤١﴾</div>
+      <div class="translation"><strong>(Ayat 40):</strong> "Dan di antara mereka ada orang-orang yang beriman kepadanya (al-Qur'an), dan di antaranya ada (pula) orang-orang yang tidak beriman kepadanya. Sedangkan Tuhanmu lebih mengetahui tentang orang-orang yang berbuat kerusakan."</div>
+      <div class="translation"><strong>(Ayat 41):</strong> "Dan jika mereka (tetap) mendustakanmu (Muhammad), maka katakanlah, 'Bagiku pekerjaanku dan bagimu pekerjaanmu. Kamu tidak bertanggung jawab terhadap apa yang aku kerjakan dan aku pun tidak bertanggung jawab terhadap apa yang kamu kerjakan.'"</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="q-num">No. 1</span> Melengkapi Potongan Ayat</div>
+      <div class="note-box">Soal biasanya menyajikan ayat dengan bagian yang dikosongkan. Hafal urutan kata-kata kuncinya!</div>
+      <table class="info-table">
+        <tr><th>Potongan Ayat (Arab)</th><th>Terjemahan</th></tr>
+        <tr><td><span class="tajwid-tag">وَمِنْهُمْ مَّنْ يُّؤْمِنُ بِهٖ</span></td><td>Dan di antara mereka ada yang beriman kepadanya</td></tr>
+        <tr><td><span class="tajwid-tag">وَمِنْهُمْ مَّنْ لَّا يُؤْمِنُ بِهٖ</span></td><td>Dan di antara mereka ada yang tidak beriman</td></tr>
+        <tr><td><span class="tajwid-tag">وَرَبُّكَ اَعْلَمُ بِالْمُفْسِدِيْنَ</span></td><td>Tuhanmu lebih tahu orang yang berbuat kerusakan</td></tr>
+        <tr><td><span class="tajwid-tag">لِّيْ عَمَلِيْ وَلَكُمْ عَمَلُكُمْ</span></td><td>Bagiku amalku dan bagimu amalmu</td></tr>
+        <tr><td><span class="tajwid-tag">اَنْتُمْ بَرِيْۤـُٔوْنَ مِمَّآ اَعْمَلُ</span></td><td>Kamu tidak bertanggung jawab atas apa yang aku kerjakan</td></tr>
+        <tr><td><span class="tajwid-tag">وَاَنَا۠ بَرِيْۤءٌ مِّمَّا تَعْمَلُوْنَ</span></td><td>Dan aku berlepas diri dari apa yang kamu kerjakan</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="q-num">No. 2</span> Terjemahan Mufradat (Kosakata)</div>
+      <table class="info-table">
+        <tr><th>Lafadz</th><th>Arti</th><th>Lafadz</th><th>Arti</th></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">وَمِنْهُمْ</span></td><td>Dan di antara mereka</td><td><span class="tajwid-tag" style="font-size:15px;">مَنْ يُؤْمِنُ</span></td><td>Yang beriman</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">وَرَبُّكَ</span></td><td>Dan Tuhanmu</td><td><span class="tajwid-tag" style="font-size:15px;">اَعْلَمُ</span></td><td>Lebih mengetahui</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">بِالْمُفْسِدِيْنَ</span></td><td>Tentang para perusak</td><td><span class="tajwid-tag" style="font-size:15px;">كَذَّبُوْكَ</span></td><td>Mendustakanmu</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">لِّيْ عَمَلِيْ</span></td><td>Bagiku amalku</td><td><span class="tajwid-tag" style="font-size:15px;">بَرِيْۤـُٔوْنَ</span></td><td>Berlepas diri</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">اَنْتُمْ</span></td><td>Kalian/kamu</td><td><span class="tajwid-tag" style="font-size:15px;">تَعْمَلُوْنَ</span></td><td>Yang kalian kerjakan</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="q-num">No. 3</span> Identifikasi Tajwid QS. Yūnus: 41</div>
+      <table class="info-table">
+        <tr><th>Lafadz</th><th>Hukum Bacaan</th><th>Alasan</th></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">وَمِنْهُمْ</span></td><td><strong>Idzhar Halqi</strong></td><td>Nun sukun bertemu huruf Ha (ه)</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">مَّنْ يُّؤْمِنُ</span></td><td><strong>Idgham Bighunnah</strong></td><td>Nun sukun bertemu Ya (ي)</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">مَّنْ لَّا</span></td><td><strong>Idgham Bilaghunnah</strong></td><td>Nun sukun bertemu Lam (ل)</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">بِالْمُفْسِدِيْنَ</span></td><td><strong>Alif Lam Qamariyah</strong></td><td>Alif Lam bertemu huruf Mim (م)</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">وَاِنْ كَذَّبُوْكَ</span></td><td><strong>Ikhfa' Haqiqi</strong></td><td>Nun sukun bertemu Kaf (ك)</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">اَنْتُمْ</span></td><td><strong>Ikhfa' Haqiqi</strong></td><td>Nun sukun bertemu Ta (ت)</td></tr>
+        <tr><td><span class="tajwid-tag" style="font-size:15px;">عَمَلِيْ</span></td><td><strong>Mad Thabi'i</strong></td><td>Ya sukun didahului harakat kasrah</td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- BAB 2: TOLERANSI & AL MAIDAH -->
+<section class="section" id="bab2">
+  <div class="section-header teal">
+    <div class="section-icon teal-bg">🤝</div>
+    <div class="section-title-wrap">
+      <h2>Toleransi & QS. Al-Māidah: 32 — Memelihara Kehidupan</h2>
+      <div class="soal-badges">
+        <span class="soal-badge teal">No. 4</span><span class="soal-badge teal">No. 5</span><span class="soal-badge teal">No. 6</span><span class="soal-badge teal">No. 7</span><span class="soal-badge teal">No. 8</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-title teal"><span class="q-num teal">No. 4–5</span> Toleransi Antar Umat & Manfaatnya</div>
+      <div class="grid-2">
+        <div class="mini-card teal">
+          <h4>🌿 Pengertian Toleransi</h4>
+          <ul>
+            <li>Arab: <em>Tasamuh</em> — lembut, mudah, lapang dada</li>
+            <li>Al-Samhah: tidak menyusahkan, moderat/pertengahan</li>
+            <li>Kata kunci: menghargai orang lain yang berbeda (pendapat, kepercayaan, kebiasaan)</li>
+          </ul>
+        </div>
+        <div class="mini-card teal">
+          <h4>💡 Manfaat Toleransi (No. 5)</h4>
+          <ul>
+            <li>Menciptakan kerukunan umat beragama</li>
+            <li>Mewujudkan persatuan bangsa Indonesia</li>
+            <li>Tercipta kehidupan harmonis dan damai</li>
+            <li>Menjadi pilar perdamaian dunia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="arabic teal">الدِّيْنُ الحَنِيْفِيَّةُ السَّمْحَةُ</div>
+      <div class="translation">"Agama yang paling dicintai Allah adalah al-Hanifiyyah (lurus/jauh dari kebatilan) dan al-Samhah (toleran/memudahkan)." (HR. Ahmad)</div>
+      <div class="section-divider"></div>
+      <strong style="font-size:13px; color:var(--teal);">Contoh Perilaku Toleransi Antar Umat Seagama (No. 4):</strong>
+      <ul class="info-list" style="margin-top:8px;">
+        <li>Menghormati perbedaan mazhab (contoh: KH. Hasyim Asy'ari memakai bedug, KH. Abdullah Faqih memakai kentongan — saling menghormati saat berkunjung)</li>
+        <li>Imam shalat tidak memanjangkan bacaan agar tidak memberatkan makmum yang sakit atau punya keperluan</li>
+        <li>Memberikan kesempatan teman melaksanakan ibadah sesuai keyakinannya</li>
+        <li>Menghargai perbedaan pendapat dalam forum diskusi keagamaan</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title teal"><span class="q-num teal">No. 6–8</span> QS. Al-Māidah/5: 32 — Memelihara Kehidupan Manusia</div>
+      <div class="arabic teal">مِنْ اَجْلِ ذٰلِكَۛ كَتَبْنَا عَلٰى بَنِيْٓ اِسْرَاۤءِيْلَ اَنَّهٗ مَنْ قَتَلَ نَفْسًاۢ بِغَيْرِ نَفْسٍ اَوْ فَسَادٍ فِى الْاَرْضِ فَكَاَنَّمَا قَتَلَ النَّاسَ جَمِيْعًاۗ وَمَنْ اَحْيَاهَا فَكَاَنَّمَآ اَحْيَا النَّاسَ جَمِيْعًا</div>
+      <div class="translation">"Karena itu, Kami tetapkan suatu hukum bagi Bani Israil, bahwa barangsiapa membunuh seorang manusia bukan karena orang itu membunuh orang lain atau membuat kerusakan di muka bumi, maka seakan-akan dia telah membunuh manusia seluruhnya. Dan barangsiapa memelihara kehidupan seorang manusia, maka seolah-olah dia telah memelihara kehidupan manusia semuanya." (QS. Al-Māidah/5: 32)</div>
+      <div class="grid-2" style="margin-top:12px;">
+        <div class="mini-card teal">
+          <h4>🔍 Ilustrasi Kandungan (No. 7)</h4>
+          <p>Seseorang yang menolong korban kecelakaan, mendonorkan darah, atau memberikan bantuan bencana — seolah-olah ia telah menyelamatkan seluruh manusia. Sebaliknya, membunuh satu orang tanpa hak bagaikan membunuh semua manusia.</p>
+        </div>
+        <div class="mini-card teal">
+          <h4>✨ Cerminan Nilai (No. 8)</h4>
+          <ul>
+            <li>Menyingkirkan duri/paku dari jalan</li>
+            <li>Memakai masker saat wabah</li>
+            <li>Memberikan bantuan korban bencana</li>
+            <li>Tidak menakut-nakuti orang lain dengan senjata</li>
+            <li>Melindungi kaum non-muslim yang berdamai</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BAB 3: IMAN & AKHLAK -->
+<section class="section" id="bab3">
+  <div class="section-header gold">
+    <div class="section-icon gold-bg">💎</div>
+    <div class="section-title-wrap">
+      <h2>Menguatkan Iman: Kehormatan, Malu, Ikhlas, Zuhud</h2>
+      <div class="soal-badges">
+        <span class="soal-badge gold">No. 9–11</span><span class="soal-badge gold">No. 12–14</span><span class="soal-badge gold">No. 15–17</span><span class="soal-badge gold">No. 18–20</span><span class="soal-badge essay">Essay 42</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <details open>
+      <summary><span style="color:#b8922a">⚔️</span> 1. Menjaga Kehormatan Diri (Muru'ah / 'Iffah) — No. 9, 10, 11</summary>
+      <div>
+        <p><strong>Muru'ah</strong> = penjagaan tingkah laku agar sejalan dengan agama, menghiasi diri dengan akhlak terpuji, menjauhi keburukan.<br>
+        <strong>'Iffah</strong> = mencegah diri dari yang tidak bermanfaat / menjauhi hal terlarang dan buruk.</p>
+        <div class="arabic gold" style="margin:10px 0; font-size:18px;">وَالْحٰفِظِيْنَ فُرُوْجَهُمْ وَالْحٰفِظٰتِ (الأحزاب: 35)</div>
+        <div class="translation">"Laki-laki dan perempuan yang memelihara kehormatannya..." → Allah menyediakan ampunan dan pahala besar. (QS. Al-Ahzab: 35)</div>
+        <div style="margin-top:12px;">
+          <strong style="font-size:13.5px;">3 Macam Muru'ah:</strong>
+          <ul class="info-list numbered" style="margin-top:6px;">
+            <li><strong>Terhadap diri sendiri</strong> — melaksanakan perilaku mulia meskipun tidak ada orang lain</li>
+            <li><strong>Terhadap sesama</strong> — menjaga perilaku mulia di lingkungan keluarga, sekolah, masyarakat</li>
+            <li><strong>Terhadap Allah Swt.</strong> — merasa malu kepada Allah, selalu melaksanakan perintah dan menjauhi larangan-Nya</li>
+          </ul>
+        </div>
+        <div class="highlight-box yellow" style="margin-top:10px;">
+          <div class="hb-title">No. 11 — Sikap menjaga kehormatan di sekolah:</div>
+          Tidak menyontek, tidak mengejek teman, berpakaian sesuai aturan/syariat, menjauhi pergaulan bebas, tidak membully, menjaga nama baik sekolah, berbicara sopan kepada guru.
+        </div>
+        <div class="highlight-box yellow">
+          <div class="hb-title">No. 10 — Perilaku yang menguatkan keimanan:</div>
+          Shalat tepat waktu dan berjamaah, membaca Al-Qur'an, berzikir, bersedekah, menjauhi maksiat, menjaga lisan dari perkataan buruk, menjaga pandangan.
+        </div>
+        <div class="highlight-box yellow">
+          <div class="hb-title">No. 9 — Perilaku menjaga kehormatan diri:</div>
+          Tidak berkata kasar/jorok, berpakaian yang menutup aurat (tidak menampakkan lekuk tubuh), menjauhi zina dan pergaulan bebas, menjauhi makanan/minuman haram, mempergunakan harta di jalan kebaikan.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span style="color:#b8922a">🌸</span> 2. Sifat Malu (Al-Hayā') — No. 12, 13, 14</summary>
+      <div>
+        <p><strong>Malu (Al-Hayā')</strong> = cabang iman yang mendorong seseorang melakukan kebaikan dan menghindari keburukan. <em>"Malu adalah bagian dari iman."</em> (HR. Al-Bukhāri)</p>
+        <div class="grid-2" style="margin-top:10px;">
+          <div class="mini-card gold">
+            <h4>2 Macam Malu (No. 12–13)</h4>
+            <ul>
+              <li><strong>Malu naluri (gharizah)</strong> — Allah ciptakan pada diri hamba, mengantarkan ke kebaikan → termasuk cabang iman</li>
+              <li><strong>Malu yang dilatih (muktasab)</strong> — malu kepada Allah karena taqwa, rasa merasa selalu diawasi Allah → puncak iman (ihsan)</li>
+            </ul>
+          </div>
+          <div class="mini-card gold">
+            <h4>Manfaat Sifat Malu (No. 14)</h4>
+            <ul>
+              <li>Menghindarkan dari perbuatan maksiat</li>
+              <li>Meningkatkan derajat keimanan</li>
+              <li>Mencegah korupsi, pencurian, penipuan</li>
+              <li>Mengantarkan pada kebaikan dan kemuliaan</li>
+              <li>Menjaga nama baik diri dan keluarga</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box yellow" style="margin-top:10px;">
+          <div class="hb-title">No. 13 — Perilaku malu yang menguatkan iman:</div>
+          Malu berbuat dosa karena yakin Allah selalu mengawasi (raqabatullah), malu menyontek, malu berpakaian tidak sopan, malu menyebarkan konten negatif, malu mengingkari janji.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span style="color:#b8922a">🌟</span> 3. Ikhlas — No. 15, 16, 17</summary>
+      <div>
+        <p><strong>Ikhlas</strong> = membersihkan amal perbuatan dari hal yang mengotorinya — tidak mengharap pujian makhluk, tidak mencari selain ridha Allah Swt.</p>
+        <div class="arabic gold" style="font-size:18px; margin:10px 0;">فَاعْبُدِ اللّٰهَ مُخْلِصًا لَّهُ الدِّيْنَ (الزمر: 2)</div>
+        <div class="translation">"Maka sembahlah Allah dengan memurnikan ketaatan (ibadah) kepada-Nya." (QS. Az-Zumar: 2)</div>
+        <div class="grid-2" style="margin-top:10px;">
+          <div class="mini-card gold">
+            <h4>3 Tingkatan Ikhlas</h4>
+            <ul>
+              <li><strong>Orang awam:</strong> ibadah demi keuntungan dunia & akhirat</li>
+              <li><strong>Orang khawas:</strong> ibadah hanya demi akhirat (pahala/surga)</li>
+              <li><strong>Khawashul khawas:</strong> ibadah murni karena cinta (mahabbah) kepada Allah, bukan lagi karena surga/neraka</li>
+            </ul>
+          </div>
+          <div class="mini-card gold">
+            <h4>No. 16 — Cerminan Sikap Ikhlas</h4>
+            <ul>
+              <li>Memberi sedekah tanpa ingin dipuji</li>
+              <li>Membantu teman tanpa pamrih</li>
+              <li>Beribadah tidak hanya saat ada orang</li>
+              <li>Tidak mengumumkan amalan kebaikan di medsos untuk pamer</li>
+              <li>Belajar dengan sungguh-sungguh bukan hanya karena takut nilai buruk</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-box yellow" style="margin-top:10px;">
+          <div class="hb-title">No. 15 — Akibat tidak ikhlas:</div>
+          Mudah digoda setan, amalan tidak bernilai di sisi Allah, amal sia-sia (hanya dapat pujian manusia tapi tidak dapat pahala), rentan riya' dan sum'ah, derajat rendah di akhirat.
+        </div>
+        <div class="highlight-box yellow">
+          <div class="hb-title">No. 17 — Makna ikhlas yang sebenarnya:</div>
+          Bukan sekadar tidak memperlihatkan amal, tapi <strong>membersihkan amal dari semua yang mengotorinya</strong> — termasuk tidak mengharap pujian makhluk dan tidak ingin amalnya disaksikan siapapun selain Allah. Tiga ciri (Imam Dzun Nun): (1) tidak menghiraukan pujian/hinaan orang, (2) tidak melihat manfaat/bahaya perbuatan melainkan perintah Allah, (3) tidak mengingat-ingat pahala amal.
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span style="color:#b8922a">🍃</span> 4. Zuhud — No. 18, 19, 20</summary>
+      <div>
+        <p><strong>Zuhud</strong> bukan berarti miskin atau meninggalkan dunia! Zuhud adalah <strong>cara menyikapi harta dunia</strong> dengan benar — hati tidak memperbudak harta.</p>
+        <div class="highlight-box yellow">
+          <div class="hb-title">Definisi Ulama:</div>
+          <ul style="padding-left:16px; font-size:13.5px;">
+            <li><strong>Imam Ghazali:</strong> Zuhud bukan meninggalkan harta, tapi mampu menikmati dunia tanpa menjadi hina dan tanpa jauh dari Allah</li>
+            <li><strong>Raghib al-Ishfahani:</strong> Orang zuhud adalah yang cinta akhirat, menjadikan dunia sebagai sarana menuju akhirat</li>
+            <li><strong>Abu Sulaiman:</strong> Meninggalkan yang dapat menyibukkan sehingga lalai dari Allah</li>
+          </ul>
+        </div>
+        <div class="grid-2" style="margin-top:10px;">
+          <div class="mini-card gold">
+            <h4>No. 18–19 — Penerapan & Perilaku Zuhud</h4>
+            <ul>
+              <li>Hidup sederhana meski berpenghasilan banyak</li>
+              <li>Tidak sombong dan tidak memamerkan harta</li>
+              <li>Mendahulukan sedekah daripada kemewahan</li>
+              <li>Mencari harta dengan cara halal</li>
+              <li>Sabar menerima musibah tanpa mengeluh berlebihan</li>
+              <li>Menggunakan harta di jalan kebaikan/ibadah</li>
+            </ul>
+          </div>
+          <div class="mini-card gold">
+            <h4>No. 20 — Manfaat Zuhud</h4>
+            <ul>
+              <li>Terhindar dari penyakit <em>wahn</em> (cinta dunia &amp; takut mati)</li>
+              <li>Hati tenang tidak serakah</li>
+              <li>Dekat dengan Allah Swt.</li>
+              <li>Terhindar dari korupsi dan kecurangan</li>
+              <li>Hidup lebih bermakna dan bahagia</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<!-- BAB 4: MEDIA SOSIAL -->
+<section class="section" id="bab4">
+  <div class="section-header rose">
+    <div class="section-icon rose-bg">📱</div>
+    <div class="section-title-wrap">
+      <h2>Adab Menggunakan Media Sosial</h2>
+      <div class="soal-badges">
+        <span class="soal-badge rose">No. 21–28</span><span class="soal-badge essay">Essay 43</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-title rose"><span class="q-num rose">No. 22 & 25</span> Manfaat Media Sosial</div>
+      <div class="grid-2">
+        <div class="mini-card rose">
+          <h4>✅ Dampak Positif / Manfaat</h4>
+          <ul>
+            <li>Memudahkan komunikasi dan silaturahmi</li>
+            <li>Kemudahan mendapatkan informasi</li>
+            <li>Media belajar yang efektif</li>
+            <li>Sarana dakwah / mengajak kebaikan</li>
+            <li>Media bisnis dan ekonomi kreatif</li>
+            <li>Menghubungkan berbagai belahan dunia</li>
+          </ul>
+        </div>
+        <div class="mini-card rose">
+          <h4>⚠️ Dampak Negatif (No. 28)</h4>
+          <ul>
+            <li>Hoaks dan disinformasi</li>
+            <li>Ujaran kebencian (hate speech)</li>
+            <li>Pornografi</li>
+            <li>Radikalisme dan terorisme</li>
+            <li>Cyberbullying / perkelahian online</li>
+            <li>Kecanduan media sosial</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title rose"><span class="q-num rose">No. 26</span> Dasar Hukum: QS. Al-Hujurāt/49: 6</div>
+      <div class="arabic rose">يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْٓا اِنْ جَاۤءَكُمْ فَاسِقٌۢ بِنَبَاٍ فَتَبَيَّنُوْٓا اَنْ تُصِيْبُوْا قَوْمًاۢ بِجَهَالَةٍ فَتُصْبِحُوْا عَلٰى مَا فَعَلْتُمْ نٰدِمِيْنَ</div>
+      <div class="translation">"Wahai orang-orang yang beriman! Jika seseorang yang fasik datang kepadamu membawa suatu berita, maka telitilah kebenarannya, agar kamu tidak mencelakakan suatu kaum karena kebodohan (kecerobohan), yang akhirnya kamu menyesali perbuatanmu itu." (QS. Al-Hujurāt/49: 6)</div>
+      <div class="highlight-box red">
+        <div class="hb-title">Kaitan dengan Media Sosial:</div>
+        Sebelum menyebarkan (share) informasi di medsos, WAJIB mengecek kebenarannya terlebih dahulu. Saring sebelum sharing!
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title rose"><span class="q-num rose">No. 21, 23, 24, 27</span> Adab-Adab Bermedia Sosial</div>
+      <table class="info-table">
+        <tr><th>Adab</th><th>Penjelasan & Dasar Dalil</th></tr>
+        <tr><td><strong>a. Niat yang baik</strong></td><td>Niatkan lillāhi ta'āla agar bernilai ibadah. Dasar: QS. Al-An'am: 162–163 + Hadis niat (HR. Muslim)</td></tr>
+        <tr><td><strong>b. Memilih teman baik</strong></td><td>Pilih teman medsos yang mengajak kebaikan. Hadis: teman seperti penjual minyak misk vs pandai besi (HR. Bukhāri)</td></tr>
+        <tr><td><strong>c. Meneliti kebenaran</strong></td><td><em>Saring sebelum sharing.</em> Cek fakta sebelum menyebarkan. Dasar: QS. Al-Hujurāt/49: 6</td></tr>
+        <tr><td><strong>d. Tidak merekayasa/hoaks</strong></td><td>Tidak memanipulasi informasi. Dasar: QS. Al-Hajj/22: 30 "Jauhilah perkataan dusta"</td></tr>
+        <tr><td><strong>e. Mengajak kepada kebaikan</strong></td><td>Jadikan medsos ladang dakwah. Hadis: "Siapa menunjukkan ke kebaikan, mendapat pahala yang sama" (HR. Muslim)</td></tr>
+        <tr><td><strong>f. Cara yang baik</strong></td><td>Sampaikan informasi/komentar dengan bahasa santun. Dasar: QS. An-Nahl/16: 125</td></tr>
+        <tr><td><strong>g. Tidak menyakiti</strong></td><td>Hindari menghina, mencaci, ujaran kebencian. Hadis: haram darah, harta, harga diri muslim (HR. Muslim)</td></tr>
+        <tr><td><strong>h. Bersikap bijak</strong></td><td>Tinggalkan yang tidak bermanfaat. Hadis: "Kebaikan Islam seseorang = meninggalkan yang tidak bermanfaat" (HR. Tirmidzī)</td></tr>
+        <tr><td><strong>i. Mengambil hikmah</strong></td><td>"Kalimat hikmah adalah sesuatu yang hilang dari mukmin." Selalu ambil kebaikan dari medsos. (HR. Tirmidzī)</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title rose">QS. Al-Hujurāt/49: 12 — Hindari Ghibah & Prasangka</div>
+      <div class="translation">"Hai orang-orang beriman, jauhilah kebanyakan prasangka, karena sebagian prasangka itu dosa. Janganlah mencari-cari keburukan orang dan janganlah menggunjingkan satu sama lain..." (QS. Al-Hujurāt/49: 12)</div>
+      <div class="highlight-box red">
+        <div class="hb-title">Penerapan dalam Medsos:</div>
+        Hindari update status berburuk sangka (su'udzan), mencari-cari kesalahan orang lain (tajassus), dan menggunjing orang lain (ghibah) di grup atau feed media sosial.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BAB 5: PERNIKAHAN -->
+<section class="section" id="bab5">
+  <div class="section-header lavender">
+    <div class="section-icon lav-bg">💍</div>
+    <div class="section-title-wrap">
+      <h2>Ketentuan Pernikahan dalam Islam</h2>
+      <div class="soal-badges">
+        <span class="soal-badge lav">No. 29–36</span><span class="soal-badge essay">Essay 44</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-title lav"><span class="q-num lav">No. 29 & 35</span> Rukun Nikah — 5 Rukun WAJIB HAFAL</div>
+      <div class="highlight-box purple"><div class="hb-title">5 Rukun Pernikahan: Calon Suami + Calon Istri + Wali + Dua Saksi + Sighat (Ijab-Qabul)</div></div>
+      <table class="info-table">
+        <tr><th class="teal">No.</th><th class="teal">Rukun</th><th class="teal">Syarat Utama</th></tr>
+        <tr><td>1</td><td><strong>Calon Suami</strong></td><td>Laki-laki, tidak dalam ihram, tidak terpaksa, jelas identitasnya, bukan mahram calon istri</td></tr>
+        <tr><td>2</td><td><strong>Calon Istri</strong></td><td>Perempuan, tidak dalam ihram atau iddah, jelas identitasnya, bukan mahram</td></tr>
+        <tr><td>3</td><td><strong>Wali</strong></td><td>Islam, baligh, berakal, merdeka, laki-laki, adil. Urutan: Bapak → Kakek → Saudara laki-laki sekandung → dst...</td></tr>
+        <tr><td>4</td><td><strong>Dua Orang Saksi</strong></td><td>Islam, baligh, berakal, merdeka, laki-laki, adil</td></tr>
+        <tr><td>5</td><td><strong>Sighat (Ijab-Qabul)</strong></td><td>Bersambung, tidak dikaitkan jangka waktu, lafadz "nikah/tazwij", boleh berbahasa selain Arab</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title lav"><span class="q-num lav">No. 33</span> Hukum Menikah (5 Hukum)</div>
+      <table class="info-table">
+        <tr><th class="teal">Hukum</th><th class="teal">Kondisi</th></tr>
+        <tr><td><strong>Sunah</strong></td><td>Sudah mampu lahir-batin, masih sanggup mengendalikan diri dari zina</td></tr>
+        <tr><td><strong>Wajib</strong></td><td>Mampu menikah dan dikhawatirkan terjerumus zina jika tidak menikah</td></tr>
+        <tr><td><strong>Mubah</strong></td><td>Tidak ada faktor pengharusan maupun penghalang untuk menikah</td></tr>
+        <tr><td><strong>Makruh</strong></td><td>Ada keinginan tetapi hanya mampu membiayai pernikahan, belum mampu memberi nafkah</td></tr>
+        <tr><td><strong>Haram</strong></td><td>Berniat buruk (menyakiti istri) atau tidak mampu biaya nikah dan nafkah sama sekali</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title lav"><span class="q-num lav">No. 30</span> Adab Memilih Calon Pasangan</div>
+      <div class="arabic lav">تُنْكَحُ الْمَرْأَةُ لِأَرْبَعٍ: لِمَالِهَا وَلِحَسَبِهَا وَجَمَالِهَا وَلِدِيْنِهَا فَاظْفَرْ بِذَاتِ الدِّيْنِ تَرِبَتْ يَدَاكَ</div>
+      <div class="translation">"Wanita dinikahi karena empat hal: hartanya, keturunannya, kecantikannya, dan agamanya. Maka pilihlah karena agamanya, niscaya kamu beruntung." (HR. Al-Bukhāri)</div>
+      <div class="grid-2" style="margin-top:10px;">
+        <div class="mini-card lav">
+          <h4>4 Pertimbangan Memilih Pasangan</h4>
+          <ul>
+            <li>💰 Harta (maal)</li>
+            <li>👑 Keturunan/nasab (hasab)</li>
+            <li>✨ Kecantikan/ketampanan (jamal)</li>
+            <li>🕌 <strong>Agama (diin) ← UTAMAKAN INI!</strong></li>
+          </ul>
+        </div>
+        <div class="mini-card lav">
+          <h4>Mengapa Agama Diutamakan?</h4>
+          <p>Karena dengan agama yang kuat, pasangan akan taat kepada Allah dan dapat memelihara dirinya. "Dunia adalah perhiasan dan sebaik-baik perhiasan adalah wanita shalihah." (HR. Muslim)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title lav"><span class="q-num lav">No. 31, 32, 34, 36</span> Pernikahan Harmonis & Menyelesaikan Masalah</div>
+      <div class="grid-2">
+        <div class="mini-card lav">
+          <h4>Kewajiban Suami kepada Istri</h4>
+          <ul>
+            <li>Memberi tempat tinggal yang layak</li>
+            <li>Memberi nafkah sesuai kemampuan</li>
+            <li>Bergaul dengan cara ma'ruf (baik)</li>
+            <li>Memimpin dan membimbing keluarga</li>
+            <li>Membantu merawat dan mendidik anak</li>
+          </ul>
+        </div>
+        <div class="mini-card lav">
+          <h4>Kewajiban Istri kepada Suami</h4>
+          <ul>
+            <li>Patuh dan taat kepada suami sesuai syariat</li>
+            <li>Menjaga kehormatan diri dan harta suami</li>
+            <li>Mengelola rumah tangga dengan baik</li>
+            <li>Memelihara, merawat, mendidik anak</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box purple" style="margin-top:12px;">
+        <div class="hb-title">Cara Menyelesaikan Masalah Rumah Tangga (No. 31, 34, 36):</div>
+        <ul style="padding-left:16px; font-size:13.5px;">
+          <li><strong>Komunikasi terbuka</strong> — saling bicara dengan cara ma'ruf, tidak mendiamkan</li>
+          <li><strong>Musyawarah bersama</strong> — diskusikan masalah berdua dengan tenang</li>
+          <li><strong>Menghadirkan hakam (wasit)</strong> — dari pihak keluarga kedua belah pihak (QS. An-Nisa: 35)</li>
+          <li><strong>Memperkuat ibadah bersama</strong> — shalat berjamaah, doa bersama</li>
+          <li><strong>Rujuk</strong> — bila sudah talak 1/2, suami boleh kembali selama masa iddah</li>
+        </ul>
+      </div>
+      <div class="highlight-box purple">
+        <div class="hb-title">Faktor Pernikahan Harmonis (No. 32):</div>
+        Saling memahami hak &amp; kewajiban, agama yang kuat sebagai pondasi, komunikasi yang baik, saling menghargai dan menghormati, menyelesaikan masalah dengan sabar dan musyawarah, menjaga kepercayaan (trust), kesamaan visi dan misi keluarga.
+      </div>
+    </div>
+
+    <!-- PERNIKAHAN TIDAK SAH -->
+    <div class="card">
+      <div class="card-title lav"><span class="q-num essay">Essay 44</span> Pernikahan yang Tidak Sah (8 Jenis)</div>
+      <table class="info-table">
+        <tr><th class="teal">Jenis Pernikahan</th><th class="teal">Penjelasan & Dalil</th></tr>
+        <tr><td><strong>1. Nikah Mut'ah</strong></td><td>Pernikahan dengan batas waktu tertentu. Haram menurut 4 mazhab. Dalil: HR. Al-Bukhāri (dilarang saat Perang Khaibar)</td></tr>
+        <tr><td><strong>2. Nikah Syighar</strong></td><td>Barter tanpa mahar (tukar anak perempuan). Dalil: HR. Muslim</td></tr>
+        <tr><td><strong>3. Nikah Muhallil</strong></td><td>Menikahi wanita yang dicerai 3x agar suami pertama bisa rujuk, atas perintah suami pertama. Dilaknat Allah. Dalil: HR. Tirmidzī</td></tr>
+        <tr><td><strong>4. Nikah saat Ihram</strong></td><td>Orang berihram tidak boleh menikah, menikahkan, atau meminang. Dalil: HR. Muslim</td></tr>
+        <tr><td><strong>5. Nikah dalam Iddah</strong></td><td>Menikahi wanita yang masih dalam masa iddah. Dalil: QS. Al-Baqarah/2: 235</td></tr>
+        <tr><td><strong>6. Nikah tanpa Wali</strong></td><td>"Tidak ada nikah kecuali dengan wali." (HR. Abu Dāwud)</td></tr>
+        <tr><td><strong>7. Nikah dengan Wanita Musyrik</strong></td><td>Haram. Dalil: QS. Al-Baqarah/2: 221</td></tr>
+        <tr><td><strong>8. Menikahi Mahram</strong></td><td>Mahram nasab, sepersusuan, atau karena pernikahan. Dalil: QS. An-Nisa'/4: 22–23</td></tr>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- BAB 6: TALAK & IDDAH -->
+<section class="section" id="bab6">
+  <div class="section-header rose">
+    <div class="section-icon rose-bg">📋</div>
+    <div class="section-title-wrap">
+      <h2>Talak (Perceraian), Iddah, dan Rujuk</h2>
+      <div class="soal-badges">
+        <span class="soal-badge rose">No. 37</span><span class="soal-badge rose">No. 38</span><span class="soal-badge rose">No. 39</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-title rose"><span class="q-num rose">No. 37</span> Penyebab Perceraian (Talak)</div>
+      <div class="translation"><em>"Perkara halal yang paling Allah benci adalah perceraian."</em> (HR. Abu Dāwud) → Hukum asal talak adalah <strong>makruh</strong></div>
+      <div class="grid-2" style="margin-top:10px;">
+        <div class="mini-card rose">
+          <h4>Macam-Macam Talak</h4>
+          <ul>
+            <li><strong>Talak Raj'i:</strong> Talak 1 atau 2, suami boleh rujuk selama iddah</li>
+            <li><strong>Talak Ba'in Shughra:</strong> Atas permintaan istri (khuluk), tidak boleh rujuk dalam iddah</li>
+            <li><strong>Talak Ba'in Kubra:</strong> Talak ke-3, tidak boleh rujuk kecuali istri menikah dulu dengan orang lain</li>
+            <li><strong>Talak Sunni:</strong> Saat istri suci, sesuai syariat</li>
+            <li><strong>Talak Bid'i:</strong> Saat istri haid, tidak sesuai syariat (haram)</li>
+          </ul>
+        </div>
+        <div class="mini-card rose">
+          <h4>Hukum Talak Berdasarkan Kondisi</h4>
+          <ul>
+            <li><strong>Wajib:</strong> Jika mempertahankan pernikahan hanya saling menyakiti</li>
+            <li><strong>Sunah:</strong> Suami tidak mampu nafkah / istri tidak menjaga kehormatan</li>
+            <li><strong>Haram:</strong> Merugikan salah satu pihak; istri sedang haid</li>
+            <li><strong>Makruh:</strong> Hukum asal talak — tanpa alasan yang dibenarkan syariat</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box red" style="margin-top:12px;">
+        <div class="hb-title">Penyebab Perceraian dalam Kehidupan (No. 37):</div>
+        Suami tidak mampu memberi nafkah, istri tidak taat/menjaga kehormatan, pertengkaran yang berlarut-larut, kekerasan dalam rumah tangga, tidak ada kecocokan, murtad, perbuatan melanggar ikatan pernikahan, atau masing-masing pihak ingin memilih jalur yang berbeda.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title rose"><span class="q-num rose">No. 38</span> Hikmah Perceraian</div>
+      <ul class="info-list">
+        <li>Mengakhiri penderitaan dari pernikahan yang tidak bisa dipertahankan</li>
+        <li>Memberikan kesempatan kedua pihak memulai kehidupan baru yang lebih baik</li>
+        <li>Menghindari kekerasan dan kezaliman yang lebih parah</li>
+        <li>Islam memberi jalan keluar yang manusiawi dan terhormat dari ikatan yang merusak</li>
+        <li>Menjadi pelajaran agar lebih berhati-hati dalam memilih pasangan dan membina rumah tangga</li>
+        <li>Melindungi hak-hak anak agar tidak tumbuh dalam lingkungan konflik terus-menerus</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title rose"><span class="q-num rose">No. 39</span> Masa Iddah dan Hikmahnya</div>
+      <p style="font-size:14px; color:var(--text-mid); margin-bottom:10px;"><strong>Iddah</strong> = masa menanti yang diwajibkan kepada perempuan setelah bercerai, sebelum boleh menikah lagi.</p>
+      <table class="info-table">
+        <tr><th class="teal">Kondisi Perempuan</th><th class="teal">Masa Iddah</th><th class="teal">Dasar Hukum</th></tr>
+        <tr><td>Hamil</td><td>Hingga melahirkan</td><td>QS. Al-Thalaq/65: 4</td></tr>
+        <tr><td>Cerai mati (suami wafat), tidak hamil</td><td>4 bulan 10 hari</td><td>QS. Al-Baqarah/2: 234</td></tr>
+        <tr><td>Cerai hidup, masih haid</td><td>3 kali quru' (suci)</td><td>QS. Al-Baqarah/2: 228</td></tr>
+        <tr><td>Cerai hidup, sudah menopause</td><td>3 bulan</td><td>QS. Al-Thalaq/65: 4</td></tr>
+      </table>
+      <div class="highlight-box red" style="margin-top:12px;">
+        <div class="hb-title">Hikmah Masa Iddah (No. 39):</div>
+        <ul style="padding-left:16px; font-size:13.5px;">
+          <li>Memastikan ada/tidaknya kandungan dari suami sebelumnya (menjaga nasab anak)</li>
+          <li>Masa perenungan dan introspeksi diri</li>
+          <li>Penghormatan atas hubungan pernikahan yang pernah dijalin (Imam al-Sya'rawi)</li>
+          <li>Memberi kesempatan suami untuk rujuk jika menyesal (pada talak raj'i)</li>
+          <li>Menjaga hak-hak anak yang mungkin dikandung</li>
+        </ul>
+      </div>
+      <div class="section-divider"></div>
+      <p style="font-size:13.5px; color:var(--text-mid);"><strong>Rujuk</strong> = mengembalikan istri yang masih dalam masa iddah talak raj'i (bukan ba'in). Hanya boleh pada talak 1 atau 2. Jika di luar masa iddah, harus akad nikah yang baru.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- BAB 7: SEJARAH ISLAM & IPTEK -->
+<section class="section" id="bab7">
+  <div class="section-header brown">
+    <div class="section-icon brown-bg">🌍</div>
+    <div class="section-title-wrap">
+      <h2>Sejarah Islam dan IPTEK Masa Modern</h2>
+      <div class="soal-badges">
+        <span class="soal-badge brown">No. 40</span><span class="soal-badge essay">Essay 45</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="card">
+      <div class="card-title brown"><span class="q-num brown">No. 40</span> Tiga Periode Besar Sejarah Islam (Prof. Dr. H. Harun Nasution)</div>
+      <div class="highlight-box brown"><div class="hb-title">⭐ WAJIB HAFAL TAHUNNYA!</div></div>
+      <table class="info-table">
+        <tr><th style="background:var(--warm-brown);">Periode</th><th style="background:var(--warm-brown);">Rentang Tahun</th><th style="background:var(--warm-brown);">Keterangan Penting</th></tr>
+        <tr>
+          <td><strong>I. Klasik</strong></td>
+          <td><strong>650 – 1250 M</strong></td>
+          <td>
+            • 650–1000 M: <strong>Masa Kemajuan Islam I (Keemasan)</strong><br>
+            • 1000–1250 M: Masa Disintegrasi
+          </td>
+        </tr>
+        <tr>
+          <td><strong>II. Pertengahan</strong></td>
+          <td><strong>1250 – 1800 M</strong></td>
+          <td>
+            • 1250–1500 M: Masa Kemunduran I<br>
+            • 1500–1800 M: Masa Tiga Kerajaan Besar: <strong>Usmani</strong> (Turki), <strong>Safawi</strong> (Persia), <strong>Mughal</strong> (India)
+          </td>
+        </tr>
+        <tr>
+          <td><strong>III. Modern</strong></td>
+          <td><strong>1800 M – sekarang</strong></td>
+          <td>Masa Kebangkitan Islam / Modernisasi</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title brown"><span class="q-num essay">Essay 45</span> Kemajuan IPTEK Masa Modern</div>
+
+      <details>
+        <summary>📋 Kondisi Islam Awal Masa Modern (1800 M)</summary>
+        <div>
+          <ul class="info-list">
+            <li>Dunia Islam berada di bawah kolonialisme Barat</li>
+            <li>Eropa maju pesat: mesin uap → revolusi industri, teknologi perkapalan &amp; militer</li>
+            <li>Kerajaan Safawi &amp; Mughal hancur; Kerajaan Usmani melemah ("the sick man of Europe")</li>
+            <li>Umat Islam sadar tertinggal → muncul gerakan modernisasi/pembaruan</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>🚀 3 Faktor Gerakan Pembaruan Islam</summary>
+        <div>
+          <ul class="info-list numbered">
+            <li>Pemurnian ajaran Islam dari unsur asing yang menjadi penyebab kemunduran</li>
+            <li>Menimba ilmu pengetahuan dari Barat melalui pengiriman pelajar muslim ke Eropa + gerakan penerjemahan karya-karya Barat ke bahasa Arab</li>
+            <li>Kondisi negara-negara Arab di bawah penjajahan Eropa (Mesir, Turki, India)</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>👥 Tokoh-Tokoh Pembaru Islam Masa Modern</summary>
+        <div>
+          <table class="info-table">
+            <tr><th>Tokoh</th><th>Kontribusi Utama</th></tr>
+            <tr><td><strong>Muhammad Ali Pasya (Mesir)</strong></td><td>Mendirikan sekolah modern (militer, teknik, kedokteran), memasukkan ilmu modern ke Mesir</td></tr>
+            <tr><td><strong>Rifa'ah al-Tahtawi (Mesir)</strong></td><td>Penerjemahan karya Barat, modernisasi pendidikan Mesir, mengenalkan demokrasi</td></tr>
+            <tr><td><strong>Jamaludin al-Afghani (1838–1897M)</strong></td><td>Pan-Islamisme, persatuan umat Islam melawan kolonialisme Barat</td></tr>
+            <tr><td><strong>Muhammad Abduh</strong></td><td>Pembaruan tafsir Al-Qur'an, sains tidak bertentangan dengan Islam, menghilangkan dikotomi ulama-ilmuwan</td></tr>
+            <tr><td><strong>Rasyid Ridha</strong></td><td>Melanjutkan pemikiran Muhammad Abduh, menulis Tafsir Al-Manar</td></tr>
+            <tr><td><strong>Sultan Mahmud II (Turki)</strong></td><td>Modernisasi pemerintahan dan militer Kerajaan Usmani</td></tr>
+            <tr><td><strong>Muhammad Iqbal</strong></td><td>Filsafat Islam modern, kebangkitan umat Islam Asia, penggagas Pakistan</td></tr>
+            <tr><td><strong>KH. Ahmad Dahlan (Indonesia)</strong></td><td>Mendirikan Muhammadiyah (1912), modernisasi pendidikan Islam Indonesia</td></tr>
+            <tr><td><strong>KH. Hasyim Asy'ari (Indonesia)</strong></td><td>Mendirikan Nahdlatul Ulama/NU (1926), menjaga tradisi Islam Nusantara</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>💡 Hikmah Belajar Peradaban Islam Masa Modern</summary>
+        <div>
+          <ul class="info-list">
+            <li>Menguasai IPTEK harus dilandasi dengan iman dan takwa kepada Allah Swt.</li>
+            <li>Umat Islam tidak boleh tertinggal dalam ilmu pengetahuan dan teknologi</li>
+            <li>Ilmu pengetahuan modern tidak bertentangan dengan Islam; belajar ilmu modern adalah mengambil kembali warisan ilmu yang pernah dimiliki Islam</li>
+            <li>Pemikiran Pan-Islamisme (Jamaludin al-Afghani) menginspirasi gerakan kemerdekaan bangsa-bangsa Islam</li>
+            <li>Mendorong semangat bangkit dan memajukan umat Islam Indonesia</li>
+            <li>Belajar dari sejarah: mengetahui kelebihan dan kekurangan masa lalu sebagai pelajaran untuk masa depan</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ESSAY SECTION -->
+<section class="section" id="essay">
+  <div class="section-header lavender">
+    <div class="section-icon lav-bg">✏️</div>
+    <div class="section-title-wrap">
+      <h2>Panduan Menjawab Soal Essay (No. 41–45)</h2>
+      <div class="soal-badges"><span class="soal-badge essay">Essay 41–45</span></div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="essay-card">
+      <div class="essay-number">ESSAY NO. 41</div>
+      <h4>Kandungan QS. Yūnus/10: 40–41</h4>
+      <ol>
+        <li><strong>Pembagian Manusia:</strong> Penduduk Makkah terbagi dua — yang beriman pada Al-Qur'an dan yang tidak beriman selamanya karena keras kepala</li>
+        <li><strong>Allah Maha Mengetahui:</strong> Hanya Allah yang tahu siapa yang mendapat hidayah dan siapa yang memilih kesesatan</li>
+        <li><strong>Prinsip Toleransi:</strong> "Bagiku pekerjaanku, bagimu pekerjaanmu" — tidak ada pemaksaan dalam keimanan</li>
+        <li><strong>Pertanggungjawaban Individual:</strong> Setiap manusia akan mempertanggungjawabkan amalnya sendiri di akhirat, tidak dapat menanggung beban orang lain</li>
+        <li><strong>Penghiburan kepada Nabi:</strong> Tugas Nabi hanya menyampaikan, bukan memaksakan. Allah yang menentukan hidayah</li>
+      </ol>
+    </div>
+
+    <div class="essay-card">
+      <div class="essay-number">ESSAY NO. 42</div>
+      <h4>Menguatkan Iman dengan Menjaga Kehormatan, Malu, Ikhlas, dan Zuhud</h4>
+      <ul>
+        <li><strong>Muru'ah (Kehormatan):</strong> Menjaga akhlak mulia dalam segala kondisi → membuat seseorang selalu melaksanakan perintah Allah dan menjauhi larangan-Nya → keimanan menguat</li>
+        <li><strong>Hayā' (Malu):</strong> Malu kepada Allah karena selalu merasa diawasi → menghindari perbuatan maksiat → meningkatkan cabang iman bahkan hingga derajat ihsan</li>
+        <li><strong>Ikhlas:</strong> Beramal semata karena ridha Allah → tidak tergoda tipu daya setan → amal diterima Allah → derajat iman meningkat</li>
+        <li><strong>Zuhud:</strong> Tidak memperbudak hati pada dunia → hati fokus pada Allah → terhindar dari penyakit wahn → iman semakin kuat</li>
+        <li><strong>Keterkaitan:</strong> Keempat sifat ini adalah bagian dari cabang iman yang saling melengkapi untuk membentuk pribadi muslim yang kuat imannya</li>
+      </ul>
+    </div>
+
+    <div class="essay-card">
+      <div class="essay-number">ESSAY NO. 43</div>
+      <h4>Adab dalam Menggunakan Media Sosial</h4>
+      <ul>
+        <li><strong>Niat yang baik</strong> (lillāhi ta'āla) — agar bermedia sosial bernilai ibadah</li>
+        <li><strong>Memilih teman yang baik</strong> di media sosial untuk saling mengingatkan pada kebaikan</li>
+        <li><strong>Saring sebelum sharing</strong> — meneliti kebenaran informasi sebelum disebarkan (QS. Al-Hujurāt: 6)</li>
+        <li><strong>Tidak merekayasa/membuat hoaks</strong> — jauhi perkataan dusta (QS. Al-Hajj: 30)</li>
+        <li><strong>Mengajak kepada kebaikan</strong> — jadikan medsos ladang dakwah</li>
+        <li><strong>Menggunakan bahasa santun</strong> dalam komentar dan posting (QS. An-Nahl: 125)</li>
+        <li><strong>Tidak menghina/mencaci/ghibah</strong> — jaga kehormatan sesama (QS. Al-Hujurāt: 12)</li>
+        <li><strong>Bersikap bijak</strong> — tinggalkan yang tidak bermanfaat (HR. Tirmidzī)</li>
+      </ul>
+    </div>
+
+    <div class="essay-card">
+      <div class="essay-number">ESSAY NO. 44</div>
+      <h4>Pernikahan yang Tidak Sah dalam Islam</h4>
+      <p style="font-size:13.5px; color:#555; margin-bottom:8px;">Sebutkan minimal 4 jenis dan jelaskan masing-masing:</p>
+      <ul>
+        <li><strong>Nikah Mut'ah</strong> — pernikahan dengan batas waktu tertentu, haram menurut 4 mazhab (HR. Al-Bukhāri)</li>
+        <li><strong>Nikah Syighar</strong> — nikah barter tanpa mahar (HR. Muslim)</li>
+        <li><strong>Nikah Muhallil</strong> — dilaknat Allah dan Rasul-Nya (HR. Tirmidzī)</li>
+        <li><strong>Nikah saat Ihram</strong> — tidak sah bagi yang sedang ihram haji/umrah (HR. Muslim)</li>
+        <li><strong>Nikah tanpa Wali</strong> — "Tidak ada nikah kecuali dengan wali." (HR. Abu Dāwud)</li>
+        <li><strong>Nikah dalam Masa Iddah</strong> — dilarang (QS. Al-Baqarah: 235)</li>
+        <li><strong>Menikahi Mahram</strong> — haram selamanya (nasab, sepersusuan, pernikahan)</li>
+      </ul>
+    </div>
+
+    <div class="essay-card">
+      <div class="essay-number">ESSAY NO. 45</div>
+      <h4>Kemajuan IPTEK pada Masa Modern Islam</h4>
+      <ul>
+        <li><strong>Latar belakang:</strong> Umat Islam menyadari ketertinggalan dari Barat → bangkit dengan gerakan modernisasi sejak 1800M</li>
+        <li><strong>Tiga periode Islam:</strong> Klasik (650–1250M) → Pertengahan (1250–1800M) → Modern (1800M–kini)</li>
+        <li><strong>Tokoh:</strong> Jamaludin Al-Afghani, Muhammad Abduh, KH. Ahmad Dahlan, KH. Hasyim Asy'ari, dll.</li>
+        <li><strong>Bidang kemajuan:</strong> Pendidikan modern, militer, teknologi, penerjemahan ilmu Barat</li>
+        <li><strong>Prinsip utama:</strong> Ilmu modern tidak bertentangan dengan Islam; belajar ilmu modern adalah mengambil kembali warisan ilmu yang pernah milik Islam</li>
+        <li><strong>Hikmah:</strong> IPTEK harus dilandasi iman dan takwa agar membawa maslahat bagi umat manusia, bukan kerusakan</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PETA MATERI -->
+<section class="section">
+  <div class="section-header" style="border-left-color:var(--warm-brown);">
+    <div class="section-icon brown-bg">🎯</div>
+    <div class="section-title-wrap"><h2>Peta Materi → Nomor Soal (Referensi Cepat)</h2></div>
+  </div>
+  <div class="section-body">
+    <table class="info-table">
+      <tr><th style="background:var(--sage-dark);">No. Soal</th><th style="background:var(--sage-dark);">Topik Materi</th><th style="background:var(--sage-dark);">Sumber Bab</th></tr>
+      <tr><td>1, 2, 3</td><td>QS. Yūnus: 40–41 (melengkapi, terjemah, tajwid)</td><td>BAB 6</td></tr>
+      <tr><td>4, 5</td><td>Toleransi antar umat &amp; manfaat toleransi</td><td>BAB 6</td></tr>
+      <tr><td>6, 7, 8</td><td>QS. Al-Māidah: 32 — memelihara kehidupan manusia</td><td>BAB 6</td></tr>
+      <tr><td>9, 10, 11</td><td>Menjaga kehormatan diri (Muru'ah / 'Iffah)</td><td>BAB 7</td></tr>
+      <tr><td>12, 13, 14</td><td>Sifat Malu (Al-Hayā')</td><td>BAB 7</td></tr>
+      <tr><td>15, 16, 17</td><td>Ikhlas</td><td>BAB 7</td></tr>
+      <tr><td>18, 19, 20</td><td>Zuhud</td><td>BAB 7</td></tr>
+      <tr><td>21–28</td><td>Adab Bermedia Sosial (termasuk QS. Al-Hujurāt: 6 &amp; 12)</td><td>BAB 8</td></tr>
+      <tr><td>29, 35</td><td>Rukun Nikah (5 rukun)</td><td>BAB 9</td></tr>
+      <tr><td>30</td><td>Adab memilih calon pasangan (4 kriteria + utamakan agama)</td><td>BAB 9</td></tr>
+      <tr><td>31, 34, 36</td><td>Cara menyelesaikan masalah rumah tangga</td><td>BAB 9</td></tr>
+      <tr><td>32</td><td>Faktor pernikahan harmonis (hak &amp; kewajiban)</td><td>BAB 9</td></tr>
+      <tr><td>33</td><td>Hukum menikah (sunah/wajib/mubah/makruh/haram)</td><td>BAB 9</td></tr>
+      <tr><td>37</td><td>Penyebab perceraian / macam-macam talak</td><td>BAB 9</td></tr>
+      <tr><td>38</td><td>Hikmah perceraian</td><td>BAB 9</td></tr>
+      <tr><td>39</td><td>Masa iddah &amp; hikmahnya</td><td>BAB 9</td></tr>
+      <tr><td>40</td><td>Tiga periode sejarah Islam (Klasik/Pertengahan/Modern + tahunnya)</td><td>BAB 10</td></tr>
+      <tr style="background:#f0edfa;"><td><strong>Essay 41</strong></td><td>Kandungan QS. Yūnus: 40–41 (5 poin)</td><td>BAB 6</td></tr>
+      <tr style="background:#f0edfa;"><td><strong>Essay 42</strong></td><td>Menguatkan iman: Kehormatan, Malu, Ikhlas, Zuhud</td><td>BAB 7</td></tr>
+      <tr style="background:#f0edfa;"><td><strong>Essay 43</strong></td><td>Adab media sosial (9 adab + dalilnya)</td><td>BAB 8</td></tr>
+      <tr style="background:#f0edfa;"><td><strong>Essay 44</strong></td><td>Pernikahan yang tidak sah (8 jenis)</td><td>BAB 9</td></tr>
+      <tr style="background:#f0edfa;"><td><strong>Essay 45</strong></td><td>Kemajuan IPTEK Masa Modern Islam</td><td>BAB 10</td></tr>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p>📚 Materi Ulangan PAI Kelas XI • Berdasarkan Kisi-Kisi Resmi • Sumber: Buku PAI dan Budi Pekerti SMA/SMK Kelas XI (Bab 6–10)</p>
+  <p style="margin-top:6px; opacity:0.7; font-size:12px;">Belajar dengan ikhlas dan penuh semangat, insya Allah hasilnya terbaik 🌿</p>
+</footer>
+
+<script>
+  function goTo(id, btn) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
